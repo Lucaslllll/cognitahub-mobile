@@ -1,0 +1,70 @@
+<Core>
+
+
+    MDBoxLayout:
+        orientation: "vertical"
+        md_bg_color: self.theme_cls.backgroundColor
+
+        MDScreenManager:
+            id: id_screen_manager
+
+            Screen:
+                name: "Screen 1"
+                
+                MDBoxLayout:
+                    orientation: "vertical"
+                    
+
+                    ScrollView:
+                        do_scroll_x: False
+
+                        BoxLayout:
+                            id: id_scroll
+                            orientation: "vertical"
+                            size_hint_y: None
+                            height: self.minimum_height
+            
+
+
+            Screen:
+                name: "Screen 2"
+            
+            
+            Screen:
+                name: "Screen 3"
+                
+
+
+        MDNavigationBar:
+
+            MDNavigationItem:
+                on_release: root.change_screen("Screen 1")
+
+                MDNavigationItemIcon: 
+                    icon: "search-web"
+                MDNavigationItemLabel: 
+                    text: "Meus cursos"
+                
+
+            MDNavigationItem:
+                on_release: root.change_screen("Screen 2")
+
+                MDNavigationItemIcon: 
+                    icon: "search-web"
+                MDNavigationItemLabel: 
+                    text: "Search User"
+
+            MDNavigationItem:
+                on_release: root.change_screen("Screen 3")
+
+                MDNavigationItemIcon: 
+                    icon: "search-web"
+                MDNavigationItemLabel: 
+                    text: "Fórum"
+
+
+
+
+
+<ListItemCustom>:
+    
