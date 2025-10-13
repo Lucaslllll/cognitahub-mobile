@@ -27,31 +27,35 @@ class Core(MDScreen):
     def on_start(self, *args):
         self.ids.id_scroll.clear_widgets()
 
-        
-        for item in range(1, 10):
+        courses = Connector(name_url="user/courses", tag="Courses List")
+        courses = courses.get()
 
-            self.ids.id_scroll.add_widget(
-                ListItemCustom(
-                    MDListItemLeadingAvatar(
-                        source="assets/images/default-image.jpg"
-                    ),
-                    MDListItemHeadlineText(
-                        text="name"
-                    ),
-                    MDListItemSupportingText(
-                        text="Subtext suportando tudo que vier melhor"
-                    ),
-                    screen_object=self,
-                    id_user=1,
-                    name_user="name",
-                    pos_hint={"center_x": 0.5, "center_y": 0.5},
-                    size_hint_x=0.9,
-                    theme_bg_color="Custom",
-                    md_bg_color=[0.1, 0.1, 0.1, 0.1]
-                    
-                ),
+        if type(courses) is list:
             
-            )
+            for course in courses:
+
+                self.ids.id_scroll.add_widget(
+                    ListItemCustom(
+                        MDListItemLeadingAvatar(
+                            source="assets/images/default-image.jpg"
+                        ),
+                        MDListItemHeadlineText(
+                            text="name"
+                        ),
+                        MDListItemSupportingText(
+                            text="Subtext suportando tudo que vier melhor"
+                        ),
+                        screen_object=self,
+                        id_user=1,
+                        name_user="name",
+                        pos_hint={"center_x": 0.5, "center_y": 0.5},
+                        size_hint_x=0.9,
+                        theme_bg_color="Custom",
+                        md_bg_color=[0.1, 0.1, 0.1, 0.1]
+                        
+                    ),
+                
+                )
 
 
     def change_screen(self, number):

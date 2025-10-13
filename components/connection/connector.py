@@ -26,7 +26,7 @@ class Connector(object):
             self.response = False
             self.token_access = None
         
-        self.head = {'Authorization': 'Bearer {}'.format(self.token_access)}
+        self.head = {'Content-Type': 'application/json', 'Authorization': 'Bearer {}'.format(self.token_access)}
 
         
     def get(self, id_object=None, page=None, image=False):

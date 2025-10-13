@@ -14,4 +14,4 @@ else:
 if store.exists('domain'):
     URL = store.get('domain')['URL']
 else:
-    URL = "http://localhost:18080"
+    URL = "http://localhost:8080"
