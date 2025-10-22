@@ -13,6 +13,32 @@
                 
                 MDBoxLayout:
                     orientation: "vertical"
+
+                    MDBoxLayout:
+                        orientation: "vertical"
+                        
+                        MDLabel:
+                            text: "Courses: "
+
+                        MDSwiper:
+                            id: id_swiper_course
+                            size_hint_y: None
+                            height: 300
+                            y: root.height - self.height - dp(20)
+
+                            
+
+                        BoxLayout:
+
+                
+            
+
+
+            Screen:
+                name: "Screen 2"
+                
+                MDBoxLayout:
+                    orientation: "vertical"
                     
 
                     ScrollView:
@@ -23,12 +49,11 @@
                             orientation: "vertical"
                             size_hint_y: None
                             height: self.minimum_height
-            
+                
+                        
 
+                    
 
-            Screen:
-                name: "Screen 2"
-            
             
             Screen:
                 name: "Screen 3"
@@ -41,30 +66,38 @@
                 on_release: root.change_screen("Screen 1")
 
                 MDNavigationItemIcon: 
-                    icon: "search-web"
+                    icon: "school"
                 MDNavigationItemLabel: 
-                    text: "Meus cursos"
+                    text: "My Courses"
                 
 
             MDNavigationItem:
                 on_release: root.change_screen("Screen 2")
 
                 MDNavigationItemIcon: 
-                    icon: "search-web"
+                    icon: "forum"
                 MDNavigationItemLabel: 
-                    text: "Search User"
+                    text: "Forum"
 
             MDNavigationItem:
                 on_release: root.change_screen("Screen 3")
 
                 MDNavigationItemIcon: 
-                    icon: "search-web"
+                    icon: "cog"
                 MDNavigationItemLabel: 
-                    text: "Fórum"
+                    text: "Settings"
 
 
 
 
 
 <ListItemCustom>:
-    
+
+
+
+
+<CardSwiper>:
+
+    FitImage:
+        source: root.img_url
+        radius: [dp(20),]

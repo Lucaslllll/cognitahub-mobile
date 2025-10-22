@@ -13,10 +13,10 @@ from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.behaviors import RotateBehavior
 from kivymd.uix.expansionpanel import MDExpansionPanel
 from kivymd.uix.list import MDListItemTrailingIcon
+from kivymd.uix.swiper.swiper import MDSwiperItem
 
 from components.connection.connector import Connector
-
-
+from components.connection.credentials import URL
 
 
 class Core(MDScreen):
@@ -26,6 +26,7 @@ class Core(MDScreen):
     
     def on_start(self, *args):
         self.ids.id_scroll.clear_widgets()
+        self.ids.id_swiper_course.clear_widgets()
 
         courses = Connector(name_url="user/courses", tag="Courses List")
         courses = courses.get()
@@ -33,29 +34,46 @@ class Core(MDScreen):
         if type(courses) is list:
             
             for course in courses:
+                from urllib.parse import quote
 
-                self.ids.id_scroll.add_widget(
-                    ListItemCustom(
-                        MDListItemLeadingAvatar(
-                            source="assets/images/default-image.jpg"
-                        ),
-                        MDListItemHeadlineText(
-                            text="name"
-                        ),
-                        MDListItemSupportingText(
-                            text="Subtext suportando tudo que vier melhor"
-                        ),
-                        screen_object=self,
-                        id_user=1,
-                        name_user="name",
-                        pos_hint={"center_x": 0.5, "center_y": 0.5},
-                        size_hint_x=0.9,
-                        theme_bg_color="Custom",
-                        md_bg_color=[0.1, 0.1, 0.1, 0.1]
-                        
-                    ),
-                
+                # se uma imagem tive um caractere especial isso garantira que
+                # ela se adeque corretamente a ascii
+                # Corrige a URL fazendo o encode adequado
+
+                encoded_url = quote(URL+"/media/"+course["thumb"], safe=':/')
+                self.ids.id_swiper_course.add_widget(
+                    CardSwiper(img_url=encoded_url)
                 )
+
+
+        # if type(courses) is list:
+            
+        #     for course in courses:
+
+        #         self.ids.id_scroll.add_widget(
+        #             ListItemCustom(
+        #                 MDListItemLeadingAvatar(
+        #                     source="assets/img/bg.jpg"
+        #                 ),
+        #                 MDListItemHeadlineText(
+        #                     text="name"
+        #                 ),
+        #                 MDListItemSupportingText(
+        #                     text="Subtext suportando tudo que vier melhor"
+        #                 ),
+        #                 screen_object=self,
+        #                 id_user=1,
+        #                 name_user="name",
+        #                 pos_hint={"center_x": 0.5, "center_y": 0.5},
+        #                 size_hint_x=0.9,
+        #                 theme_bg_color="Custom",
+        #                 md_bg_color=[0.1, 0.1, 0.1, 0.1]
+                        
+        #             ),
+                
+        #         )
+
+        
 
 
     def change_screen(self, number):
@@ -72,3 +90,8 @@ class ListItemCustom(MDListItem):
         self.screen_object.manager.user_id_chat = self.id_user
         self.screen_object.manager.user_name_chat = self.name_user
         self.screen_object.manager.current = "chat_name"
+
+
+
+class CardSwiper(MDSwiperItem):
+    img_url = StringProperty()
