@@ -37,6 +37,11 @@ class Course(MDScreen):
         ) if not panel.is_open else panel.set_chevron_up(chevron)
 
 
+    def change_screen_to_core(self, number):
+        self.manager.current = "core_name"
+        self.manager.current_screen.ids.id_screen_manager.current = number
 
+    def change_screen(self, name):
+        self.manager.current = name
 
 

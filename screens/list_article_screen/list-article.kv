@@ -1,0 +1,36 @@
+<ListArticle>
+    MDBoxLayout:
+        orientation: "vertical"
+        md_bg_color: app.theme_cls.surfaceColor
+
+
+        MDTopAppBar:
+        
+            MDTopAppBarLeadingButtonContainer:
+
+                MDActionTopAppBarButton:
+                    icon: "arrow-left"
+                    on_release: root.change_screen("course_name")
+
+            MDTopAppBarTitle:
+                text: "Articles for the course"
+                pos_hint: {"center_x": .5}
+
+            
+
+        MDDivider:
+
+        ScrollView:
+            do_scroll_x: False
+
+            BoxLayout:
+                id: id_scroll_article
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+
+
+
+
+
+<ListItemCustom>:

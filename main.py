@@ -71,7 +71,8 @@ class CognitaHubApp(App, MDApp):
         os.path.join(os.getcwd(), "screens/core_screen/core.kv"),
         os.path.join(os.getcwd(), "screens/register_screen/register.kv"),
         os.path.join(os.getcwd(), "screens/login_screen/login.kv"),
-        os.path.join(os.getcwd(), "screens/course_screen/course.kv")
+        os.path.join(os.getcwd(), "screens/course_screen/course.kv"),
+        os.path.join(os.getcwd(), "screens/list_article_screen/list-article.kv")
     }
 
     CLASSES = {
@@ -80,7 +81,7 @@ class CognitaHubApp(App, MDApp):
         "Register": "screens.register_screen.register",
         "Login": "screens.login_screen.login",
         "Course": "screens.course_screen.course",
-        
+        "ListArticle": "screens.list_article_screen.list-article",
     }
 
 

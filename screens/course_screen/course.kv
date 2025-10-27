@@ -68,7 +68,7 @@
                         padding: "10dp"
                         text_color: self.theme_cls.backgroundColor
                         bold: True
-                        text: "Listas de exercicio"
+                        text: "exercise lists"
                         
                 
                 MDCard:
@@ -88,13 +88,15 @@
                     height: "170dp"
                     width: "170dp"
                     style: "outlined"
+
+                    on_release: root.change_screen("list_article_name")
                     
 
                     MDLabel:
                         padding: "10dp"
                         bold: True
                         text_color: self.theme_cls.backgroundColor
-                        text: "artigos"
+                        text: "articles"
 
                 MDCard:
                     theme_shadow_color: "Custom"
@@ -113,14 +115,42 @@
                     height: "170dp"
                     width: "170dp"
                     style: "outlined"
+
                     
 
                     MDLabel:
                         padding: "10dp"
                         text_color: self.theme_cls.backgroundColor
                         bold: True
-                        text: "tarefas para enviar"
+                        text: "submit assignments"
 
         Widget:
+
+        MDNavigationBar:
+
+            MDNavigationItem:
+                on_release: root.change_screen_to_core("Screen 1")
+
+                MDNavigationItemIcon: 
+                    icon: "school"
+                MDNavigationItemLabel: 
+                    text: "My Courses"
+                
+
+            MDNavigationItem:
+                on_release: root.change_screen_to_core("Screen 2")
+
+                MDNavigationItemIcon: 
+                    icon: "forum"
+                MDNavigationItemLabel: 
+                    text: "Forum"
+
+            MDNavigationItem:
+                on_release: root.change_screen_to_core("Screen 3")
+
+                MDNavigationItemIcon: 
+                    icon: "cog"
+                MDNavigationItemLabel: 
+                    text: "Settings"
 
         

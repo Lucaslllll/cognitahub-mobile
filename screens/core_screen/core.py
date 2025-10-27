@@ -28,22 +28,31 @@ class Core(MDScreen):
     def on_start(self, *args):
         self.ids.id_scroll.clear_widgets()
         self.ids.id_swiper_course.clear_widgets()
+        
+        self.list_swiper = []
 
         courses = Connector(name_url="user/courses", tag="Courses List")
         courses = courses.get()
+
+        
 
         if type(courses) is list:
             
             for course in courses:
                 from urllib.parse import quote
+                
 
                 # se uma imagem tive um caractere especial isso garantira que
                 # ela se adeque corretamente a ascii
                 # Corrige a URL fazendo o encode adequado
 
                 encoded_url = quote(URL+"/media/"+course["thumb"], safe=':/')
+                cardSwiper = CardSwiper(id_course=course["id"], img_url=encoded_url, title=course["name"], screen_object=self)
+                self.list_swiper.append(cardSwiper)
+
+                
                 self.ids.id_swiper_course.add_widget(
-                    CardSwiper(img_url=encoded_url, title=course["name"], manager=self)
+                    cardSwiper
                 )
 
         topics = Connector(name_url="topics", tag="Topics List")
@@ -74,7 +83,11 @@ class Core(MDScreen):
                 )
 
         
-
+    def on_pre_leave(self):
+        self.ids.id_scroll.clear_widgets()
+        
+        for r in self.list_swiper:
+            self.ids.id_swiper_course.remove_widget(r)
 
     def change_screen(self, number):
         self.ids.id_screen_manager.current = number
@@ -96,10 +109,11 @@ class ListItemCustom(MDListItem):
 # lembrete: par buttonbehavior funcionar, ele tem que ser o primeiro a ser herdado
 # ao inves do mdswiperitem por exemplo
 class CardSwiper(ButtonBehavior, MDSwiperItem):
+    id_course = NumericProperty()
     img_url = StringProperty()
     title = StringProperty()
-    manager = ObjectProperty()
+    screen_object = ObjectProperty()
 
     def change_screen(self, screen_name, *args):
-        print("ola")
-        self.manager.manager.current = screen_name
+        self.screen_object.manager.select_course = self.id_course
+        self.screen_object.manager.current = screen_name
