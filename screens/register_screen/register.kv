@@ -1,0 +1,140 @@
+<Register>
+
+    MDBoxLayout:
+        orientation: "vertical"
+        md_bg_color: self.theme_cls.backgroundColor
+
+        RelativeLayout:
+
+            SVGWidgetR:    
+
+            ScrollView:
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: "20dp"
+                    pos_hint: {'center_x':  0.5, 'center_y': 0.8}
+                    padding: "10dp", "30dp"
+
+
+                    MDLabel:
+                        text: "Register"
+                        font_style: "Display"
+                        role: "small"
+                        adaptive_height: True
+                        halign: "center"
+                        bold: True
+
+            
+                    MDTextField:
+                        id: id_text_username
+                        mode: "filled"
+                        line_color_normal: 1, 0, 1, 1
+                        text_color_focus: 0, 0, 0, 1
+
+                        MDTextFieldHintText:
+                            text: "Name"
+                    
+                        
+
+                    MDTextField:
+                        id: id_text_email
+                        mode: "filled"
+                        line_color_normal: 0, 0, 0, 1
+                        text_color_focus: 0, 0, 0, 1
+                        #validator: "email"
+
+                        MDTextFieldHintText:
+                            text: "Email"
+                    
+
+            
+                    BoxLayout:
+                        orientation: "horizontal"
+                        size_hint_y: None
+                        height: id_text_password.height
+            
+                        MDTextField:
+                            id: id_text_password
+                            mode: "filled"
+                            color: 0, 0, 0, 1
+                            line_color_normal: 1, 0, 1, 1
+                            text_color_focus: 0, 0, 0, 1
+                            password: True
+                            icon_left: "key-variant"
+
+                            MDTextFieldHintText:
+                                text: "Password"
+
+
+                        MDIconButton:
+                            icon: "eye-off"
+                            pos_hint: {"center_y": .5}
+                            pos: id_text_password.width - self.width + dp(8), 0
+                            theme_text_color: "Hint"
+            
+                            on_release:
+                                self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+                                id_text_password.password = False if id_text_password.password is True else True
+                    
+                    BoxLayout:
+                        orientation: "horizontal"
+                        size_hint_y: None
+                        height: self.minimum_height
+                        padding: "20dp"
+
+                        Label:
+                            size_hint_x: 3
+                            halign: "right"
+                            size_hint_y: None
+                            height: self.texture_size[1]
+                            text_size: self.width, None
+                            color: 1, 1, 1, 1
+                            bold: True
+                            markup: True
+                            text: "by clicking here you accept the terms of use [ref=https://yourdiary.top/sobre/termos/uso][color=#369ed6]click here to read[/color][/ref]"
+                            on_ref_press:
+                                import webbrowser
+                                webbrowser.open('https://yourdiary.top/sobre/termos/uso')
+
+
+                        MDCheckbox:
+                            size_hint_x: 1
+                            id: id_text_terms_of_use
+                            required: True
+                    
+                    
+                    Widget:
+            
+                    MDBoxLayout:
+                        orientation: "horizontal"
+                        pos_hint: {"center_x": .7}
+                        spacing: "30dp"
+
+                        MDButton:
+                            style: "filled"
+                            on_release: root.do_register()
+
+                            MDButtonText:
+                                text: "Register"
+                                color: "black"
+                                bold: True
+                        
+                        MDButton:
+                            style: "filled"
+                            theme_bg_color: "Custom"
+                            md_bg_color: "darkblue"
+
+                            on_release: root.change_screen("login_name")
+
+                            MDButtonText:
+                                text: "Login"
+                                color: "white"
+                                bold: True
+
+
+
+
+<SVGWidgetR>:

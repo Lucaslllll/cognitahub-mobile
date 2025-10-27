@@ -1,0 +1,126 @@
+<Course>
+    MDBoxLayout:
+        orientation: "vertical"
+        md_bg_color: app.theme_cls.backgroundColor
+        
+            
+        MDBoxLayout:
+            orientation: "vertical"
+            size_hint_y: None
+            height: "200dp"
+            #padding: ""
+            md_bg_color: app.theme_cls.secondaryColor 
+
+            MDLabel:
+                font_style: "Display"
+                role: "small"
+                text: "Course Content"
+                text_color: "white"
+                halign: "left"
+                bold: True
+
+            MDLabel:
+                text:"Practice by doing the course exercise lists, read the articles for each lesson, and submit any pending assignments to the teacher for correction."
+                text_color: "white"
+                halign: "left"
+                padding: "20dp"
+
+                
+
+
+        MDBoxLayout:
+            orientation: "vertical"
+            size_hint: None, None
+            width: self.minimum_width
+            height: self.minimum_height
+            pos_hint: {"center_x": 0.5}
+
+            MDGridLayout:
+                id: tab_box  
+                padding: "5dp" 
+                rows: 2
+                cols: 2
+                spacing: 10
+                size_hint: None, None
+                size: self.minimum_size
+
+                MDCard:
+                    theme_shadow_color: "Custom"
+                    shadow_color: "green"
+                    theme_bg_color: "Custom"
+                    md_bg_color: self.theme_cls.tertiaryColor
+                    md_bg_color_disabled: "grey"
+                    theme_shadow_offset: "Custom"
+                    shadow_offset: (1, -2)
+                    theme_shadow_softness: "Custom"
+                    shadow_softness: 1
+                    theme_elevation_level: "Custom"
+                    elevation_level: 2
+                    
+                    size_hint: None, None
+                    height: "170dp"
+                    width: "170dp"
+                    style: "outlined"
+                    
+                    
+
+                    MDLabel:
+                        padding: "10dp"
+                        text_color: self.theme_cls.backgroundColor
+                        bold: True
+                        text: "Listas de exercicio"
+                        
+                
+                MDCard:
+                    theme_shadow_color: "Custom"
+                    shadow_color: "green"
+                    theme_bg_color: "Custom"
+                    md_bg_color: self.theme_cls.tertiaryColor
+                    md_bg_color_disabled: "grey"
+                    theme_shadow_offset: "Custom"
+                    shadow_offset: (1, -2)
+                    theme_shadow_softness: "Custom"
+                    shadow_softness: 1
+                    theme_elevation_level: "Custom"
+                    elevation_level: 2
+
+                    size_hint: None, None
+                    height: "170dp"
+                    width: "170dp"
+                    style: "outlined"
+                    
+
+                    MDLabel:
+                        padding: "10dp"
+                        bold: True
+                        text_color: self.theme_cls.backgroundColor
+                        text: "artigos"
+
+                MDCard:
+                    theme_shadow_color: "Custom"
+                    shadow_color: "green"
+                    theme_bg_color: "Custom"
+                    md_bg_color: self.theme_cls.tertiaryColor
+                    md_bg_color_disabled: "grey"
+                    theme_shadow_offset: "Custom"
+                    shadow_offset: (1, -2)
+                    theme_shadow_softness: "Custom"
+                    shadow_softness: 1
+                    theme_elevation_level: "Custom"
+                    elevation_level: 2
+
+                    size_hint: None, None
+                    height: "170dp"
+                    width: "170dp"
+                    style: "outlined"
+                    
+
+                    MDLabel:
+                        padding: "10dp"
+                        text_color: self.theme_cls.backgroundColor
+                        bold: True
+                        text: "tarefas para enviar"
+
+        Widget:
+
+        

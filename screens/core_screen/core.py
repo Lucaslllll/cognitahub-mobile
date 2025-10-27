@@ -2,6 +2,7 @@ from kivy.core.window import Window
 from kivy.properties import StringProperty, NumericProperty, ObjectProperty
 from kivy.clock import Clock
 from kivy.uix.behaviors import ButtonBehavior
+from kivy.uix.button import Button
 
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.navigationbar import (
@@ -42,36 +43,35 @@ class Core(MDScreen):
 
                 encoded_url = quote(URL+"/media/"+course["thumb"], safe=':/')
                 self.ids.id_swiper_course.add_widget(
-                    CardSwiper(img_url=encoded_url)
+                    CardSwiper(img_url=encoded_url, title=course["name"], manager=self)
                 )
 
+        topics = Connector(name_url="topics", tag="Topics List")
+        topics = topics.get()
 
-        # if type(courses) is list:
+        if type(topics) is list:
             
-        #     for course in courses:
+            for topic in topics:
 
-        #         self.ids.id_scroll.add_widget(
-        #             ListItemCustom(
-        #                 MDListItemLeadingAvatar(
-        #                     source="assets/img/bg.jpg"
-        #                 ),
-        #                 MDListItemHeadlineText(
-        #                     text="name"
-        #                 ),
-        #                 MDListItemSupportingText(
-        #                     text="Subtext suportando tudo que vier melhor"
-        #                 ),
-        #                 screen_object=self,
-        #                 id_user=1,
-        #                 name_user="name",
-        #                 pos_hint={"center_x": 0.5, "center_y": 0.5},
-        #                 size_hint_x=0.9,
-        #                 theme_bg_color="Custom",
-        #                 md_bg_color=[0.1, 0.1, 0.1, 0.1]
+                self.ids.id_scroll.add_widget(
+                    ListItemCustom(
+                        MDListItemHeadlineText(
+                            text=topic["name"]
+                        ),
+                        MDListItemSupportingText(
+                            text=topic["details"]
+                        ),
+                        screen_object=self,
+                        id_user=1,
+                        name_user="name",
+                        pos_hint={"center_x": 0.5, "center_y": 0.5},
+                        size_hint_x=0.9,
+                        theme_bg_color="Custom",
+                        md_bg_color=[0.1, 0.1, 0.1, 0.1]
                         
-        #             ),
+                    ),
                 
-        #         )
+                )
 
         
 
@@ -93,5 +93,13 @@ class ListItemCustom(MDListItem):
 
 
 
-class CardSwiper(MDSwiperItem):
+# lembrete: par buttonbehavior funcionar, ele tem que ser o primeiro a ser herdado
+# ao inves do mdswiperitem por exemplo
+class CardSwiper(ButtonBehavior, MDSwiperItem):
     img_url = StringProperty()
+    title = StringProperty()
+    manager = ObjectProperty()
+
+    def change_screen(self, screen_name, *args):
+        print("ola")
+        self.manager.manager.current = screen_name

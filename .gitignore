@@ -17,6 +17,7 @@ __pycache__/
 .Python
 venv-front/
 venv/
+.buildozer/
 build/
 develop-eggs/
 dist/

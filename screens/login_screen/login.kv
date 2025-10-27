@@ -1,0 +1,117 @@
+<Login>
+
+    MDBoxLayout:
+        orientation: "vertical"
+        md_bg_color: self.theme_cls.backgroundColor
+
+        RelativeLayout:
+
+            SVGWidget:
+
+     
+
+            ScrollView:
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: "40dp"
+                    pos_hint: {'center_x':  0.5, 'center_y': 0.8}
+                    padding: "40dp", "30dp"
+
+                    Widget:
+                
+                    MDLabel:
+                        text: "Login"
+                        font_style: "Display"
+                        role: "small"
+                        size_hint_y: None
+                        height: "100dp"
+                        pos_hint: {"center_y": .5}
+                        halign: "center"
+                        bold: True
+
+
+
+                    MDTextField:
+                        id: id_text_email
+                        mode: "filled"
+                        line_color_normal: 0, 0, 0, 1
+                        text_color_focus: 0, 0, 0, 1
+                        validator: "email"
+
+                        MDTextFieldHintText:
+                            text: "Email"
+
+
+            
+                    BoxLayout:
+                        orientation: "horizontal"
+                        size_hint_y: None
+                        height: id_text_password.height
+            
+                        MDTextField:
+                            id: id_text_password
+                            mode: "filled"
+                            color: 0, 0, 0, 1
+                            line_color_normal: 1, 0, 1, 1
+                            text_color_focus: 0, 0, 0, 1
+                            password: True
+                            icon_left: "key-variant"
+
+                            MDTextFieldHintText:
+                                text: "Password"
+
+
+                        MDIconButton:
+                            icon: "eye-off"
+                            pos_hint: {"center_y": .5}
+                            pos: id_text_password.width - self.width + dp(8), 0
+                            theme_text_color: "Hint"
+            
+                            on_release:
+                                self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+                                id_text_password.password = False if id_text_password.password is True else True
+                    
+
+                    
+                    MDButton:
+                        style: "filled"
+                        pos_hint: {"center_x": .5}
+                        on_release: root.do_login()
+
+                        MDButtonText:
+                            text: "Login"
+                            bold: True
+                            color: "black"
+
+                    
+
+                    LabelRegister:
+                        on_release: root.change_screen("register_name")
+                    
+
+                            
+                
+
+                    
+    Widget:
+
+
+
+
+
+
+<LabelRegister>:
+    size_hint_y: None
+    height: "20dp"
+    color: 1, 1, 1, 1
+    bold: True
+    markup: True
+    text: "Do you not have a user? [color=#369ed6]click here to register[/color]"
+    
+    
+
+
+<SVGWidget>:

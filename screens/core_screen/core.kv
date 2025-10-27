@@ -16,16 +16,20 @@
 
                     MDBoxLayout:
                         orientation: "vertical"
-                        
+                        spacing: "20dp"
+
                         MDLabel:
-                            text: "Courses: "
+                            text: "Courses "
+                            font_style: "Display"
+                            #role: "small"
+                            
+                        
 
                         MDSwiper:
                             id: id_swiper_course
                             size_hint_y: None
-                            height: 300
+                            height: "350dp"
                             y: root.height - self.height - dp(20)
-
                             
 
                         BoxLayout:
@@ -40,6 +44,19 @@
                 MDBoxLayout:
                     orientation: "vertical"
                     
+                    MDTopAppBar:
+
+                        MDTopAppBarTitle:
+                            text: "Poste alguma dúvida"
+                            pos_hint: {"center_x": .5}
+
+                        MDTopAppBarTrailingButtonContainer:
+
+                            MDActionTopAppBarButton:
+                                icon: "plus"
+                                on_release: app.callback(self)
+
+                    MDDivider:
 
                     ScrollView:
                         do_scroll_x: False
@@ -97,7 +114,35 @@
 
 
 <CardSwiper>:
+    on_release: root.change_screen("course_name")
 
-    FitImage:
-        source: root.img_url
-        radius: [dp(20),]
+    MDBoxLayout: 
+        orientation: "vertical"
+        md_bg_color: app.theme_cls.tertiaryColor
+        size_hint_y: None
+        height: root.height
+        radius: 20
+
+        FitImage:
+            source: root.img_url
+            radius: [dp(20),]
+            size_hint_y: 3
+            
+        MDLabel:
+            size_hint_y: 1
+            padding: 10
+            halign: "center"
+            text_color: app.theme_cls.backgroundColor
+            text: root.title
+            bold: True
+
+            #canvas.before:
+            #    Color:
+            #        rgba: 1, 1, 1, 1
+            #    BoxShadow:
+            #        pos: self.pos
+            #        size: self.size
+            #        offset: 0, 10
+            #        spread_radius: -35, -35
+            #        border_radius: 10, 10, 10, 10
+            #        blur_radius: 50
