@@ -118,21 +118,21 @@
 
     MDBoxLayout: 
         orientation: "vertical"
-        md_bg_color: app.theme_cls.tertiaryColor
+        md_bg_color: app.theme_cls.surfaceColor
         size_hint_y: None
         height: root.height
-        radius: 20
+        radius: 30
 
         FitImage:
             source: root.img_url
-            radius: [dp(20),]
+            radius: [dp(15),]
             size_hint_y: 3
             
         MDLabel:
             size_hint_y: 1
             padding: 10
             halign: "center"
-            text_color: app.theme_cls.backgroundColor
+            text_color: "white"
             text: root.title
             bold: True
 

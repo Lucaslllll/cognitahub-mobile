@@ -1,0 +1,106 @@
+<ListExercise>
+    GridLayout:
+        cols: 1
+        md_bg_color: app.theme_cls.surfaceColor
+
+
+        MDTopAppBar:
+        
+            MDTopAppBarLeadingButtonContainer:
+
+                MDActionTopAppBarButton:
+                    icon: "arrow-left"
+                    on_release: root.change_screen("course_name")
+
+            MDTopAppBarTitle:
+                text: "Lists exercise"
+                pos_hint: {"center_x": .5}
+        
+
+        ScrollView:
+            do_scroll_x: False
+
+            BoxLayout:
+                id: id_scroll_article
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+
+                MDGridLayout:
+                    id: id_expansion_exercise
+                    cols: 1
+
+
+               
+
+
+
+
+
+<MDExpansionPanelItem>:
+    id: panel
+    pos_hint: {"center_x": .5, "center_y": .5}
+
+    MDExpansionPanelHeader:
+
+        MDListItem:
+            theme_bg_color: "Custom"
+            md_bg_color: self.theme_cls.secondaryColor
+            ripple_effect: False
+
+            MDListItemSupportingText:
+                text: root.text_exercise
+                bold: True
+
+            TrailingPressedIconButton:
+                id: chevron
+                icon: "chevron-right"
+                on_release: root.tap_expansion_chevron(panel, chevron)
+
+    MDExpansionPanelContent:
+        orientation: "vertical"
+        padding: "12dp", 0, "12dp", 0
+
+        MDLabel:
+            text: root.text_exercise
+            bold: True
+            adaptive_height: True
+            padding_x: "16dp"
+            padding_y: "12dp"
+
+        MDGridLayout:
+            cols: 1
+            spacing: "15dp"
+
+        
+            BoxLayout:
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+
+                MDLabel:
+                    id: details_annotation
+                    halign: "justify"
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    text_size: self.width, None
+                    text: root.details_exercise
+
+                MDButton:
+                    style: "elevated"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_release: root.download()
+
+                    MDButtonIcon:
+                        icon: "download-circle-outline"
+
+                    MDButtonText:
+                        text: "Download File List Exercise"
+
+                MDLabel: 
+                    id: status_download
+                    text: ""
+
+                Widget:
+                    size_hint_y: None
+                    height: "150dp"

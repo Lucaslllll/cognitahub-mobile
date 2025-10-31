@@ -48,7 +48,7 @@
                     theme_shadow_color: "Custom"
                     shadow_color: "green"
                     theme_bg_color: "Custom"
-                    md_bg_color: self.theme_cls.tertiaryColor
+                    md_bg_color: "white"
                     md_bg_color_disabled: "grey"
                     theme_shadow_offset: "Custom"
                     shadow_offset: (1, -2)
@@ -61,6 +61,7 @@
                     height: "170dp"
                     width: "170dp"
                     style: "outlined"
+                    on_release: root.change_screen("list_exercise_name")
                     
                     
 
@@ -69,13 +70,14 @@
                         text_color: self.theme_cls.backgroundColor
                         bold: True
                         text: "exercise lists"
+                        halign: "center"
                         
                 
                 MDCard:
                     theme_shadow_color: "Custom"
                     shadow_color: "green"
                     theme_bg_color: "Custom"
-                    md_bg_color: self.theme_cls.tertiaryColor
+                    md_bg_color: "white"
                     md_bg_color_disabled: "grey"
                     theme_shadow_offset: "Custom"
                     shadow_offset: (1, -2)
@@ -97,12 +99,13 @@
                         bold: True
                         text_color: self.theme_cls.backgroundColor
                         text: "articles"
+                        halign: "center"
 
                 MDCard:
                     theme_shadow_color: "Custom"
                     shadow_color: "green"
                     theme_bg_color: "Custom"
-                    md_bg_color: self.theme_cls.tertiaryColor
+                    md_bg_color: "white"
                     md_bg_color_disabled: "grey"
                     theme_shadow_offset: "Custom"
                     shadow_offset: (1, -2)
@@ -123,6 +126,7 @@
                         text_color: self.theme_cls.backgroundColor
                         bold: True
                         text: "submit assignments"
+                        halign: "center"
 
         Widget:
 
