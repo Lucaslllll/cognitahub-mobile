@@ -16,6 +16,14 @@ from components.connection.connector import Connector
 from components.connection.credentials import URL
 import os
 import requests
+from kivy.utils import platform
+
+
+if platform == "android":
+    from jnius import cast
+    from android import mActivity, api_version
+    from android.permissions import request_permissions, Permission
+    from android.storage import primary_external_storage_path
 
 
 class TrailingPressedIconButton( ButtonBehavior, RotateBehavior, MDListItemTrailingIcon ):
@@ -23,6 +31,10 @@ class TrailingPressedIconButton( ButtonBehavior, RotateBehavior, MDListItemTrail
 
 
 class MDExpansionPanelItem(MDExpansionPanel):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.is_animating = False
+
     screen_object = ObjectProperty()
     id_exercise = NumericProperty()
     text_exercise = StringProperty()
@@ -31,14 +43,53 @@ class MDExpansionPanelItem(MDExpansionPanel):
 
 
     def tap_expansion_chevron(self, panel: MDExpansionPanel, chevron: TrailingPressedIconButton):
-        panel.open() if not panel.is_open else panel.close()
-        panel.set_chevron_down(
-            chevron
-        ) if not panel.is_open else panel.set_chevron_up(chevron)
+        if self.is_animating:
+            return  # Ignora cliques
 
-    
+        self.is_animating = True
+        
+        if not panel.is_open:
+            panel.open()
+            panel.set_chevron_down(chevron)
+        else:
+            panel.close()
+            panel.set_chevron_up(chevron)
+
+        # Botar um tempinho para garantir 
+        Clock.schedule_once(lambda dt: setattr(self, "is_animating", False), 1)
+        
+        
     def download(self):
-        path_file_destination = os.path.join(os.getcwd(), self.link_download)
+
+        if platform == "android":
+            from jnius import autoclass
+            Build = autoclass('android.os.Build')
+            VERSION = autoclass('android.os.Build$VERSION')
+
+            request_permissions([Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE, Permission.READ_MEDIA_IMAGES, Permission.READ_MEDIA_VIDEO, Permission.MANAGE_DOCUMENTS])
+
+            if int(VERSION.SDK_INT) >= 30:
+                from jnius import autoclass
+
+                Intent = autoclass('android.content.Intent')
+                Settings = autoclass('android.provider.Settings')
+                Uri = autoclass('android.net.Uri')
+
+                context = autoclass('org.kivy.android.PythonActivity').mActivity
+                intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+                uri = Uri.fromParts("package", context.getPackageName(), None)
+                intent.setData(uri)
+                context.startActivity(intent)
+
+
+            base_path = primary_external_storage_path()
+            download_dir = os.path.join(base_path, "Download")
+
+        else:
+            download_dir = os.path.join(os.path.expanduser("~"), "Documentos")
+
+
+        path_file_destination = os.path.join(download_dir, self.link_download)
 
         try:
             self.ids.status_download.text = "Download arquivo..."

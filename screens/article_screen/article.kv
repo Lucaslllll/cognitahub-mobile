@@ -1,6 +1,16 @@
 <Article>
-    BoxLayout:
+    MDBoxLayout:
         orientation: "vertical"
+        md_bg_color: self.theme_cls.surfaceColor
+
+        MDButton:
+            style: "tonal"
+            pos_hint: {"center_x": .1, "center_y": .5}
+            on_release: root.manager.current = "course_name"
+
+            MDButtonIcon:
+                icon: "arrow-left"
+           
 
         ScrollView:
             scroll_timeout : 100
@@ -25,41 +35,39 @@
                     text: "Título Sobrenome"
 
 
-
-                
-
-                # MDRaisedButton:
-                #     text: "Go to Second"
-                #     on_release: image_annotation.set_current(1)
                 
                 
-                MDLabel:
-                    # md_bg_color: 0.3, 1, 0.6, 1
+                # MDBoxLayout:
+                #     id: details_article
+                #     size_hint_y: None
+                #     height: self.minimum_height
+                #     md_bg_color: "blue"
+                
+                MDInteractiveLabel:
                     id: details_article
-                    halign: "justify"
-                    size_hint_y: None
-                    height: self.texture_size[1]
-                    text_size: self.width, None
                     text: root.text_example
-
+                
+                
+                # MDLabel:
+                #     # md_bg_color: 0.3, 1, 0.6, 1
+                #     id: details_article
+                #     halign: "justify"
+                #     size_hint_y: None
+                #     height: self.texture_size[1]
+                #     text_size: self.width, None
+                #     text: root.text_example
 
                 
 
                 MDLabel:
-                    id: edit_annotation
+                    id: date_article
                     halign: "center"
                     valign: "center"
-                    text: "No Edited"
-
-                MDLabel:
-                    id: public_annotation
-                    halign: "center"
-                    valign: "center"
-                    text: "Private"
+                    text: "Date"
 
 
                 GridLayout:
-                    id: categories_annotation
+                    id: categories_article
                     rows: 10
                     cols: 5
                     spacing: "10dp"
@@ -70,7 +78,7 @@
                     MDLabel:    
                         halign: "left"
                         bold: True
-                        text: "Categories:"
+                        text: "Course: "
 
 
 
@@ -125,3 +133,7 @@
 
 
 <Arroba@ButtonBehavior+MDLabel>:
+
+
+
+<MDInteractiveLabel>:

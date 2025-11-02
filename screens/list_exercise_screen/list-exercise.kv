@@ -1,5 +1,5 @@
 <ListExercise>
-    GridLayout:
+    MDGridLayout:
         cols: 1
         md_bg_color: app.theme_cls.surfaceColor
 
@@ -20,15 +20,9 @@
         ScrollView:
             do_scroll_x: False
 
-            BoxLayout:
-                id: id_scroll_article
-                orientation: "vertical"
-                size_hint_y: None
-                height: self.minimum_height
-
-                MDGridLayout:
-                    id: id_expansion_exercise
-                    cols: 1
+            MDList:
+                id: id_expansion_exercise
+                    
 
 
                
@@ -40,6 +34,7 @@
 <MDExpansionPanelItem>:
     id: panel
     pos_hint: {"center_x": .5, "center_y": .5}
+    
 
     MDExpansionPanelHeader:
 
