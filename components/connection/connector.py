@@ -76,8 +76,6 @@ class Connector(object):
     
 
     def post(self, data, files=None, head=None, *args, **kwargs):
-        if head != None:
-            self.head["Content-Type"] = head
 
         if files != None:
             try:
@@ -110,6 +108,8 @@ class Connector(object):
                     return "Error When Making A Request To The Server"
         
         #debug
+
+        print(request.content)
         
         if request.status_code == 201:
             return True

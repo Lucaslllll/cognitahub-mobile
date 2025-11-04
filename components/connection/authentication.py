@@ -21,6 +21,7 @@ class Authenticat(object):
         except:
             return None
         
+        #print(req.content)
         
         if req.status_code == 200:
             dic_content = req.json()

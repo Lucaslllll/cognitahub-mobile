@@ -14,43 +14,65 @@ from kivymd.uix.screen import MDScreen
 
 
 from kaki.app import App
+import requests
+import json
 
 from components.connection.connector import Connector
-
+from components.connection.credentials import URL
 
 class Login(MDScreen):
 
     def on_pre_enter(self):
         self.path = App.get_running_app().user_data_dir+"/"
     
+        Clock.schedule_once(self.on_start, 1)
+    
 
+    def on_start(self, *args):
+        store = JsonStore(self.path+"data.json")
+
+        if store.exists('login_auth'):
+            if store.get('login_auth')['access'] == True:
+
+                self.manager.user_id = store.get('user')['id']
+
+                self.change_screen("core_name")
 
 
     def do_login(self, *args):
         data = {
             "email": self.ids.id_text_email.text,
-            "password": self.ids.id_text_password.text,
+            "password": self.ids.id_text_password.text
+        }
+        head = {
+            "Content-Type": "application/json"
         }
         
-        user = Connector(name_url="auth/login", tag="LOGIN")
-        user = user.post(data=data)
+        response = requests.post(URL+"/auth/login", data=json.dumps(data), headers=head)
+        
+        
+        if response.status_code == 200:
+            user = response.json()
+            if type(user) is dict:
+                # in app
+                store =  JsonStore("config.json")
+                store.put('credential', 
+                    USERNAME=self.ids.id_text_email.text,
+                    PASSWORD=self.ids.id_text_password.text
+                )
 
-        if type(user) is dict:
+                # user 
+                store = JsonStore(self.path+"data.json")
+                store.put('user', id=user['user'])
+                store.put('authentication', token_access=user['token'], response=True)
+                store.put('login_auth', access=True)
 
-            store = JsonStore(self.path+"data.json")
-            store.put('token', id=user['token'])
-
-            store.put('login_auth', access=True)
-
-            self.change_screen("core_name", login=True)
+                self.change_screen("core_name")
 
     
-    def change_screen(self, screen_name, login=False, *args):
+    def change_screen(self, screen_name, *args):
         self.manager.current = screen_name
-        if login:
-            self.manager.previous_screen = "core_name"
-        else:
-            self.manager.previous_screen = "login_name"
+        
 
 
 

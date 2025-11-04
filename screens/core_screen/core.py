@@ -18,6 +18,7 @@ from kivymd.uix.swiper.swiper import MDSwiperItem
 
 from components.connection.connector import Connector
 from components.connection.credentials import URL
+from urllib.parse import quote
 
 
 class Core(MDScreen):
@@ -39,13 +40,12 @@ class Core(MDScreen):
         if type(courses) is list:
             
             for course in courses:
-                from urllib.parse import quote
                 
 
                 # se uma imagem tive um caractere especial isso garantira que
                 # ela se adeque corretamente a ascii
                 # Corrige a URL fazendo o encode adequado
-
+                
                 encoded_url = quote(URL+"/media/"+course["thumb"], safe=':/')
                 cardSwiper = CardSwiper(id_course=course["id"], img_url=encoded_url, title=course["name"], screen_object=self)
                 self.list_swiper.append(cardSwiper)

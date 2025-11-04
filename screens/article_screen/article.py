@@ -81,6 +81,7 @@ class MDInteractiveLabel(MDBoxLayout):
                         source=url,
                         size_hint_y=None,
                         height="200dp"
+                        
                     )
                 )
 

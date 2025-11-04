@@ -1,0 +1,138 @@
+<CreateTopic>
+    MDBoxLayout:
+        orientation: "vertical"
+        md_bg_color: app.theme_cls.backgroundColor
+
+        MDBoxLayout:
+            orientation: "vertical"
+            size_hint_y: 1
+            padding: "0dp", "10dp"
+
+            MDLinearProgressIndicator:
+                id: progress_bar
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                size_hint_y: None
+                height: "5dp"
+                value: 0
+                
+
+            MDIconButton:
+                id: send_topic
+                icon: "arrow-left"
+                style: "standard"
+                on_release: root.manager.current = "course_name"
+
+
+       
+        BoxLayout:
+            orientation: "vertical"
+            padding: "10dp"
+            spacing: "30dp"
+            size_hint_y: 9
+            
+            MDCard:
+                style: "elevated"
+                pos_hint: {"center_x": .5, "center_y": .5}
+                padding: "4dp"
+                size_hint_y: None
+                height: "500dp"
+                # Sets custom properties.
+                theme_shadow_color: "Custom"
+                shadow_color: app.theme_cls.surfaceColor
+                theme_bg_color: "Custom"
+                md_bg_color: app.theme_cls.secondaryColor
+                md_bg_color_disabled: "grey"
+                theme_shadow_offset: "Custom"
+                shadow_offset: (1, -2)
+                theme_shadow_softness: "Custom"
+                shadow_softness: 1
+                theme_elevation_level: "Custom"
+                elevation_level: 2
+
+                ScrollView:
+                    BoxLayout:
+                        orientation: "vertical"
+                        size_hint_y: None
+                        height: self.minimum_height
+                        padding: "0dp", "10dp"
+                        spacing: "50dp"
+                        
+                        MDBoxLayout:
+                            orientation: "vertical"
+                            size_hint_y: None
+                            height: self.minimum_height
+                            
+                            MDTextFieldHintText:
+                                size_hint_y: None
+                                height: "50dp"
+                                font_style: "Title"
+                                text: "Title"
+                            
+                            MDTextField:
+                                mode: "filled"
+                                size_hint_y: None
+                                height: "50dp"
+                                id: id_title
+                                hint_text: "Title"
+                                max_text_length: 150
+                                theme_bg_color: "Custom"
+                                fill_color_normal: app.theme_cls.secondaryColor
+                                theme_bg_color: "Custom"
+                                fill_color_focus: app.theme_cls.backgroundColor
+                                line_color_normal: 1, 0, 1, 1
+                                text_color_focus: 0, 0, 0, 1
+
+                                MDTextFieldHelperText:
+                                    text: "Tell your question"
+                                    mode: "persistent"
+
+
+                        MDBoxLayout:
+                            orientation: "vertical"
+                            size_hint_y: None
+                            height: self.minimum_height
+                            
+                            MDTextFieldHintText:
+                                size_hint_y: None
+                                height: "50dp"
+                                font_style: "Title"
+                                text: "Describe"
+
+                            MDTextField:
+                                mode: "filled"
+                                size_hint_y: None
+                                height: "50dp"
+                                id: id_text
+                                hint_text: "Text"
+                                theme_bg_color: "Custom"
+                                fill_color_normal: app.theme_cls.secondaryColor
+                                theme_bg_color: "Custom"
+                                fill_color_focus: app.theme_cls.backgroundColor
+                                line_color_normal: 1, 0, 1, 1
+                                text_color_focus: 0, 0, 0, 1
+                                multiline: True
+                                fill_color: 1, 0, 0, 1
+                                size_hint_y:None
+                                height:"200dp"
+                                disabled: True if root.pass_two == True else False
+
+                                MDTextFieldHelperText:
+                                    text: "Describe your question"
+                                    mode: "persistent"
+
+
+                        
+                        MDIconButton:
+                            theme_text_color: "Custom"
+                            icon: "send"
+                            md_bg_color: 0.2, 1, 0.2, 1
+                            text_color: 1, 1, 1, 1
+                            line_color: 0.2, 1, 0.2, 1
+                            icon_color: 1, 1, 1, 1
+                            font_size: "18sp"
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                            on_release: root.send_topic()
+                            disabled: True if root.only_one == True else False
+
+                        
+            Widget:   

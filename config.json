@@ -1,1 +1,1 @@
-{"credential": {"USERNAME": "dueto@gmail.com", "PASSWORD": "root12"}, "domain": {"URL": "http://localhost:8080"}}
+{"domain": {"URL": "http://192.168.0.112:8080"}, "credential": {"USERNAME": "dueto@gmail.com", "PASSWORD": "root12"}}

@@ -3,13 +3,11 @@
         orientation: "vertical"
         md_bg_color: self.theme_cls.surfaceColor
 
-        MDButton:
-            style: "tonal"
-            pos_hint: {"center_x": .1, "center_y": .5}
+        
+        MDIconButton:
+            icon: "arrow-left"
+            style: "standard"
             on_release: root.manager.current = "course_name"
-
-            MDButtonIcon:
-                icon: "arrow-left"
            
 
         ScrollView:
@@ -31,33 +29,17 @@
                     size_hint_y: None
                     height: self.texture_size[1]
                     text_size: self.width, None
-                    # text: root.title_example
-                    text: "Título Sobrenome"
+                    text: root.title_example
 
 
                 
                 
-                # MDBoxLayout:
-                #     id: details_article
-                #     size_hint_y: None
-                #     height: self.minimum_height
-                #     md_bg_color: "blue"
-                
+        
                 MDInteractiveLabel:
                     id: details_article
                     text: root.text_example
                 
-                
-                # MDLabel:
-                #     # md_bg_color: 0.3, 1, 0.6, 1
-                #     id: details_article
-                #     halign: "justify"
-                #     size_hint_y: None
-                #     height: self.texture_size[1]
-                #     text_size: self.width, None
-                #     text: root.text_example
 
-                
 
                 MDLabel:
                     id: date_article

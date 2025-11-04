@@ -75,6 +75,7 @@ class CognitaHubApp(App, MDApp):
         os.path.join(os.getcwd(), "screens/list_article_screen/list-article.kv"),
         os.path.join(os.getcwd(), "screens/article_screen/article.kv"),
         os.path.join(os.getcwd(), "screens/list_exercise_screen/list-exercise.kv"),
+        os.path.join(os.getcwd(), "screens/create_topic_screen/create-topic.kv"), 
     }
 
     CLASSES = {
@@ -86,6 +87,7 @@ class CognitaHubApp(App, MDApp):
         "ListArticle": "screens.list_article_screen.list-article",
         "Article": "screens.article_screen.article",
         "ListExercise": "screens.list_exercise_screen.list-exercise",
+        "CreateTopic": "screens.create_topic_screen.create-topic",
     }
 
 
