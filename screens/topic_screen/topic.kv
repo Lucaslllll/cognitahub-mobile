@@ -1,0 +1,119 @@
+<Topic>
+    MDBoxLayout:
+        orientation: "vertical"
+        md_bg_color: self.theme_cls.backgroundColor
+
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint_y: 1
+
+            MDIconButton:
+                icon: "arrow-left"
+                style: "standard"
+                on_release: root.manager.current = "course_name"
+
+        ScrollView:
+            size_hint_y: 4
+
+            MDBoxLayout:
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: "20dp"
+
+                MDLabel:
+                    id: name_topic
+                    bold: True
+                    font_family: "Title"
+                    text: "Title"
+                    halign: "center"
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    text_size: self.width, None
+                    
+                MDLabel:
+                    id: details_topic
+                    halign: "justify"
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    text_size: self.width, None
+                    text: root.text_example
+
+        MDDivider:
+            
+        BoxLayout:
+            orientation: "vertical"
+            size_hint_y: 6
+            
+            ScrollView:
+                scroll_timeout : 100
+
+                BoxLayout:
+                    id: id_answers
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_height
+                    padding: "10dp"
+                    spacing: "100dp"
+
+                    
+                
+                    # listar os comentarios 
+        
+        MDBoxLayout:
+            orientation: "vertical"
+            size_hint_y: 1
+
+            # clicar e aparecer um modal para o usuário comentar
+            # nesse topic
+
+            MDButton:
+                pos_hint: {"center_x": 0.5}
+                on_release: root.show_to_comment()
+
+                MDButtonText:
+                    text: "REPLY"   
+                    bold: True
+
+
+
+<MessageReply>:
+    orientation: "vertical"
+    size_hint_y: None
+    height: self.minimum_height
+    padding: "5dp"
+    
+    canvas:
+        Color: 
+            rgba: app.theme_cls.secondaryColor
+
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [(10, 10), (10, 10), (10, 10), (10, 10)]
+
+    Label:
+        halign: "justify"
+        size_hint_y: None
+        height: self.texture_size[1]
+        text_size: self.width, None
+        color: 1, 1, 1, 1
+        bold: True
+        text: root.title_reply
+
+    Label:
+        halign: "justify"
+        size_hint_y: None
+        height: self.texture_size[1]
+        text_size: self.width, None
+        color: 1, 1, 1, 1
+        text: root.text_reply
+    
+
+    Label:
+        halign: "right"
+        size_hint_y: None
+        height: self.texture_size[1]
+        text_size: self.width, None
+        color: 1, 1, 1, 1
+        text: root.author_reply
