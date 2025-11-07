@@ -17,6 +17,9 @@ from kivymd.uix.dialog import (
     MDDialogButtonContainer,
     MDDialogContentContainer,
 )
+from kivymd.uix.snackbar.snackbar import MDSnackbar, MDSnackbarActionButton, MDSnackbarActionButtonText
+from kivymd.uix.snackbar.snackbar import MDSnackbarButtonContainer, MDSnackbarSupportingText, MDSnackbarCloseButton, MDSnackbarText
+
 
 from kivymd.uix.divider import MDDivider
 from kivymd.uix.label import MDLabel
@@ -24,10 +27,12 @@ from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.gridlayout import MDGridLayout
 from kivymd.uix.fitimage import FitImage
 from kivymd.uix.button import MDButton, MDButtonText
-from kivymd.uix.textfield import MDTextField
+from kivymd.uix.textfield import MDTextField, MDTextFieldHintText
 
 from kaki.app import App
 import re
+from datetime import date
+from kivy.metrics import dp
 
 from components.connection.connector import Connector
 
@@ -38,32 +43,38 @@ class Topic(MDScreen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         
-        self.title_example = "example title"
-        self.text_example = """Lorem Ipsum é simplesmente uma simulação de texto 
-        da indústria tipográfica e de impressos, e vem sendo utilizado desde o 
-        século XVI, quando um impressor desconhecido pegou uma bandeja de tipos 
-        e os embaralhou para fazer um livro de modelos de tipos. Lorem Ipsum 
-        sobreviveu não só a cinco séculos, como também ao salto para a editoração
-        eletrônica, permanecendo essencialmente inalterado. Se popularizou na 
-        década de 60, quando a Letraset lançou decalques contendo passagens de 
-        Lorem Ipsum, e mais recentemente quando passou a ser integrado a softwares
-        de editoração eletrônica como Aldus PageMaker."""
+        self.title_example = ""
+        self.text_example = ""
 
     def on_pre_enter(self):
         Clock.schedule_once(self.on_start, 1)
 
     def on_start(self, *args):
-        topics = Connector(name_url="topic/messages/{}".format(1), tag="List Mesages Topic")
-        topics = topics.get()
+        self.select_topic = self.manager.select_topic
 
-        if type(topics) is list:
+        topic = Connector(name_url="topic/{}".format(self.select_topic), tag="Get The Topic")
+        topic = topic.get()
+
+        if type(topic) is dict:
+            self.ids.name_topic.text = topic["name"]
+            self.ids.details_topic.text = topic["details"]
+
+        self.load_messages_topic()
+
+    def load_messages_topic(self, *args):
+        self.ids.id_answers.clear_widgets()
+
+        messagesT = Connector(name_url="topic/messages/{}".format(self.select_topic), tag="List Mesages Topic")
+        messagesT = messagesT.get()
+
+        if type(messagesT) is list:
             
-            for topic in topics:
+            for message in messagesT:
                 self.ids.id_answers.add_widget(
                     MessageReply(
-                        title_reply=topic["name"],
-                        text_reply=topic["details"],
-                        author_reply=topic["userDTO"]["name"],
+                        title_reply=message["name"],
+                        text_reply=message["details"],
+                        author_reply=message["userDTO"]["name"],
                     )
 
                 )
@@ -76,7 +87,22 @@ class Topic(MDScreen):
             size_hint_y=None
         )
         layout.bind(minimum_height=layout.setter("height"))
-        layout.add_widget(MDTextField(multiline=True))
+        layout.add_widget(Widget())
+        layout.add_widget( MDTextFieldHintText(text="Say something") )
+
+        text_field_title = MDTextField(id="title_reply", mode="filled")
+        layout.add_widget( text_field_title )
+
+        layout.add_widget( MDTextFieldHintText(text="Describe"))
+        
+        text_field_details = MDTextField( id="details_reply", multiline=True, size_hint_y=None, height="180dp",mode="filled")
+        layout.add_widget(
+            text_field_details
+        )
+        
+        self.ids["title_reply"] = text_field_title
+        self.ids["details_reply"] = text_field_details
+
         layout.add_widget(Widget(size_hint_y=None, height="100dp"))
         scrollview = ScrollView()
         scrollview.add_widget(layout)
@@ -113,47 +139,42 @@ class Topic(MDScreen):
                 spacing="8dp",
             ),
             
-        ).open()
+        )
+        self.dialog.open()
 
     def create_topic_message(self, *args):
+        
         data = {
-            "name": self.ids.id_title.text,
-            "details": self.ids.id_text.text,
+            "name": self.ids.title_reply.text,
+            "details": self.ids.details_reply.text,
             "date": date.today().isoformat(),
-            "author": self.manager.user_id
+            "author": self.manager.user_id,
+            "topicId": self.select_topic,
         }
 
-        user = Connector(name_url="topic/create", tag="CREATE A TOPIC")
-        user = user.post(data=data)
+        messageTopic = Connector(name_url="topic/message/create", tag="CREATE A MESSAGE TO TOPIC")
+        messageTopic = messageTopic.post(data=data)
 
-        if type(user) is bool:
-            if user == True:
-                self.only_one = False
-                MDSnackbar(
-                    MDSnackbarText(
-                        text="Question Posted",
+        if type(messageTopic) is dict:
+            MDSnackbar(
+                MDSnackbarText(
+                    text="Answer Posted",
+                ),
+                MDSnackbarButtonContainer(
+                    Widget(),
+                    
+                    MDSnackbarCloseButton(
+                        icon="close",
                     ),
-                    MDSnackbarSupportingText(
-                        text="and close buttons at the bottom",
-                        padding=[0, 0, 0, dp(56)],
-                    ),
-                    MDSnackbarButtonContainer(
-                        Widget(),
-                        MDSnackbarActionButton(
-                            MDSnackbarActionButtonText(
-                                text="Action button"
-                            ),
-                        ),
-                        MDSnackbarCloseButton(
-                            icon="close",
-                        ),
-                    ),
-                    y=dp(124),
-                    pos_hint={"center_x": 0.5},
-                    size_hint_x=0.9,
-                    padding=[0, 0, "8dp", "8dp"],
-                ).open()
-                Clock.schedule_once(self.change_screen, 2)
+                ),
+                y=dp(124),
+                pos_hint={"center_x": 0.5},
+                size_hint_x=0.9,
+                padding=[0, 0, "8dp", "8dp"],
+            ).open()
+
+            self.dialog.dismiss()
+            Clock.schedule_once(self.load_messages_topic, 2)
 
     def change_screen(self, *args):
         self.manager.current = "core_name"
@@ -162,6 +183,11 @@ class Topic(MDScreen):
     def close_dialog(self, *args):
         print(args[0])
         args[0].dismiss()
+    
+    def on_pre_leave(self):
+        self.ids.id_answers.clear_widgets()
+        self.title_example = ""
+        self.text_example = ""
 
 
 

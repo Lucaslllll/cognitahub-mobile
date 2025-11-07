@@ -57,17 +57,8 @@ class CreateTopic(MDScreen):
                     MDSnackbarText(
                         text="Question Posted",
                     ),
-                    MDSnackbarSupportingText(
-                        text="and close buttons at the bottom",
-                        padding=[0, 0, 0, dp(56)],
-                    ),
                     MDSnackbarButtonContainer(
                         Widget(),
-                        MDSnackbarActionButton(
-                            MDSnackbarActionButtonText(
-                                text="Action button"
-                            ),
-                        ),
                         MDSnackbarCloseButton(
                             icon="close",
                         ),

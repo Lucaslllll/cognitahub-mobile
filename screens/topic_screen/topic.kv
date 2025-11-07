@@ -1,7 +1,7 @@
 <Topic>
     MDBoxLayout:
         orientation: "vertical"
-        md_bg_color: self.theme_cls.backgroundColor
+        md_bg_color: self.theme_cls.secondaryColor
 
         BoxLayout:
             orientation: "horizontal"
@@ -11,25 +11,28 @@
                 icon: "arrow-left"
                 style: "standard"
                 on_release: root.manager.current = "course_name"
+            
 
         ScrollView:
             size_hint_y: 4
+            
 
             MDBoxLayout:
                 orientation: "vertical"
                 size_hint_y: None
                 height: self.minimum_height
                 spacing: "20dp"
+                
 
                 MDLabel:
                     id: name_topic
                     bold: True
-                    font_family: "Title"
-                    text: "Title"
+                    font_style: "Title"
                     halign: "center"
                     size_hint_y: None
                     height: self.texture_size[1]
                     text_size: self.width, None
+                    text: root.title_example
                     
                 MDLabel:
                     id: details_topic
@@ -38,8 +41,11 @@
                     height: self.texture_size[1]
                     text_size: self.width, None
                     text: root.text_example
+                    
 
         MDDivider:
+            theme_divider_color: "Custom"
+            color: "white"
             
         BoxLayout:
             orientation: "vertical"
@@ -64,9 +70,6 @@
             orientation: "vertical"
             size_hint_y: 1
 
-            # clicar e aparecer um modal para o usuário comentar
-            # nesse topic
-
             MDButton:
                 pos_hint: {"center_x": 0.5}
                 on_release: root.show_to_comment()
@@ -85,7 +88,7 @@
     
     canvas:
         Color: 
-            rgba: app.theme_cls.secondaryColor
+            rgba: app.theme_cls.backgroundColor
 
         RoundedRectangle:
             size: self.size

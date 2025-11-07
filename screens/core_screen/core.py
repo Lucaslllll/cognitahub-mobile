@@ -63,7 +63,7 @@ class Core(MDScreen):
             for topic in topics:
 
                 self.ids.id_scroll.add_widget(
-                    ListItemCustom(
+                    ListItemTopic(
                         MDListItemHeadlineText(
                             text=topic["name"]
                         ),
@@ -71,8 +71,7 @@ class Core(MDScreen):
                             text=topic["details"]
                         ),
                         screen_object=self,
-                        id_user=1,
-                        name_user="name",
+                        id_topic=topic["id"],
                         pos_hint={"center_x": 0.5, "center_y": 0.5},
                         size_hint_x=0.9,
                         theme_bg_color="Custom",
@@ -94,15 +93,13 @@ class Core(MDScreen):
 
 
 
-class ListItemCustom(MDListItem):
-    id_user = NumericProperty()
+class ListItemTopic(MDListItem):
     screen_object = ObjectProperty()
-    name_user = StringProperty()
+    id_topic = NumericProperty()
 
-    def talk_with(self):
-        self.screen_object.manager.user_id_chat = self.id_user
-        self.screen_object.manager.user_name_chat = self.name_user
-        self.screen_object.manager.current = "chat_name"
+    def change_screen(self, *args):
+        self.screen_object.manager.select_topic = self.id_topic
+        self.screen_object.manager.current = "topic_name"
 
 
 

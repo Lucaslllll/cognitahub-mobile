@@ -11,6 +11,7 @@ from kivymd.uix.fitimage import FitImage
 
 from kaki.app import App
 import re
+import webbrowser
 
 from components.connection.connector import Connector
 
@@ -55,6 +56,8 @@ class Article(MDScreen):
             self.ids.categories_article.add_widget(MDLabel(text=article["course"]["name"]))
             
 
+    def go_profile(self, *args):
+        webbrowser.open("https://github.com/Lucaslllll")
 
 
 
