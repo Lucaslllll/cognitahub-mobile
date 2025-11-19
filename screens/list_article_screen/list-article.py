@@ -34,11 +34,10 @@ class ListArticle(MDScreen):
                 self.ids.id_scroll_article.add_widget(
                     ListItemCustom(
                         MDListItemHeadlineText(
-                            text=article["title"]
+                            text=article["title"],
+                            markup=False
                         ),
-                        MDListItemSupportingText(
-                            text=article["details"]
-                        ),
+                        MDListItemSupportingText(text=article["preview"] if article["preview"] != None else "No Preview", markup=False),
                         screen_object=self,
                         id_article=article["idArticles"],
                         pos_hint={"center_x": 0.5, "center_y": 0.5},

@@ -74,6 +74,23 @@
             
             Screen:
                 name: "Screen 3"
+
+                MDBoxLayout:
+                    orientation: "vertical"
+
+                    ScrollView:
+                        do_scroll_x: False
+
+                        BoxLayout:
+                            id: id_scroll_config
+                            orientation: "vertical"
+                            size_hint_y: None
+                            height: self.minimum_height
+
+                            MDButton:
+                                
+                                MDButtonText:
+                                    text: "Logout"
                 
 
 

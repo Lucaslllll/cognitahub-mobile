@@ -77,3 +77,4 @@ class CreateTopic(MDScreen):
     def on_pre_leave(self):
         self.ids.id_title.text = ""
         self.ids.id_text.text = ""
+        self.ids.progress_bar.value = 0

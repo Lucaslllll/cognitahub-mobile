@@ -67,7 +67,7 @@
 
                             MDTextFieldHintText:
                                 text: "Password"
-
+                        
 
                         MDIconButton:
                             icon: "eye-off"
@@ -79,6 +79,36 @@
                                 self.icon = "eye" if self.icon == "eye-off" else "eye-off"
                                 id_text_password.password = False if id_text_password.password is True else True
                     
+                    BoxLayout:
+                        orientation: "horizontal"
+                        size_hint_y: None
+                        height: id_text_password_repeat.height
+            
+                        MDTextField:
+                            id: id_text_password_repeat
+                            mode: "filled"
+                            color: 0, 0, 0, 1
+                            line_color_normal: 1, 0, 1, 1
+                            text_color_focus: 0, 0, 0, 1
+                            password: True
+                            icon_left: "key-variant"
+
+                            MDTextFieldHintText:
+                                text: "Confirme Password"
+                        
+
+                        MDIconButton:
+                            icon: "eye-off"
+                            pos_hint: {"center_y": .5}
+                            pos: id_text_password_repeat.width - self.width + dp(8), 0
+                            theme_text_color: "Hint"
+            
+                            on_release:
+                                self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+                                id_text_password_repeat.password = False if id_text_password_repeat.password is True else True
+                    
+
+
                     BoxLayout:
                         orientation: "horizontal"
                         size_hint_y: None

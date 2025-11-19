@@ -15,21 +15,72 @@ from kivymd.uix.expansionpanel import MDExpansionPanel
 from kivymd.uix.list import MDListItemTrailingIcon
 from kivymd.uix.swiper.swiper import MDSwiperItem
 
+from kivymd.uix.snackbar.snackbar import MDSnackbar, MDSnackbarActionButton, MDSnackbarActionButtonText
+from kivymd.uix.snackbar.snackbar import MDSnackbarButtonContainer, MDSnackbarSupportingText, MDSnackbarCloseButton, MDSnackbarText
+
 
 from kivy.uix.widget import Widget
 from kivy.graphics.svg import Svg
 from kivy.uix.floatlayout import FloatLayout
 from kivy.graphics import Color, PushMatrix, PopMatrix, Scale, Translate, Rotate
-
+from kivy.metrics import dp
 
 from components.connection.connector import Connector
 from components.connection.credentials import URL
 
 
 class Register(MDScreen):
+
+
+    def open_snackbar(self, msg:str, *args):
+        MDSnackbar(
+            MDSnackbarText(
+                text=msg,
+            ),
+            MDSnackbarButtonContainer(
+                Widget(),
+                
+                MDSnackbarCloseButton(
+                    icon="close",
+                ),
+            ),
+            y=dp(124),
+            pos_hint={"center_x": 0.5},
+            size_hint_x=0.9,
+            padding=[0, 0, "8dp", "8dp"],
+        ).open()
     
     def do_register(self):
-        self.manager.current = "core_name"
+
+        if self.ids.id_text_terms_of_use.active == True:
+
+            if self.ids.id_text_password.text != "" and self.ids.id_text_password.text == self.ids.id_text_password_repeat.text:
+
+                data = {
+                    "name": self.ids.id_text_username.text,
+                    "email": self.ids.id_text_email.text,
+                    "password": self.ids.id_text_password
+                }
+
+                head = {
+                    "Content-Type": "application/json"
+                }
+                
+                response = requests.post(URL+"/auth/register", data=json.dumps(data), headers=head)
+                
+                
+                if response.status_code == 200:
+                    user = response.json()
+                    if type(user) is dict:
+                        self.open_snackbar("User Registered")
+                else:
+                    self.open_snackbar("Missing Fields Or User Already Created")
+            
+            else:
+               self.open_snackbar("Passwords Do Not Match")
+                    
+        else:
+            self.open_snackbar("Accept All Terms")
 
     def change_screen(self, screen_name, *args):
         self.manager.current = screen_name
