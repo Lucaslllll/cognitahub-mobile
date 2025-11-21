@@ -8,6 +8,10 @@ from kivy.uix.widget import Widget
 from kivy.graphics.svg import Svg
 from kivy.uix.floatlayout import FloatLayout
 from kivy.graphics import Color, PushMatrix, PopMatrix, Scale, Translate, Rotate
+from kivy.metrics import dp
+
+from kivymd.uix.snackbar.snackbar import MDSnackbar, MDSnackbarActionButton, MDSnackbarActionButtonText
+from kivymd.uix.snackbar.snackbar import MDSnackbarButtonContainer, MDSnackbarSupportingText, MDSnackbarCloseButton, MDSnackbarText
 
 
 from kivymd.uix.screen import MDScreen
@@ -68,7 +72,23 @@ class Login(MDScreen):
                 store.put('login_auth', access=True)
 
                 self.change_screen("core_name")
-
+        else:
+            MDSnackbar(
+                MDSnackbarText(
+                    text="Credentials Not Match Or Server Down",
+                ),
+                MDSnackbarButtonContainer(
+                    Widget(),
+                    
+                    MDSnackbarCloseButton(
+                        icon="close",
+                    ),
+                ),
+                y=dp(124),
+                pos_hint={"center_x": 0.5},
+                size_hint_x=0.9,
+                padding=[0, 0, "8dp", "8dp"],
+            ).open()
     
     def change_screen(self, screen_name, *args):
         self.manager.current = screen_name
@@ -85,31 +105,42 @@ class SVGWidget(Widget):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.svg_path = "assets/img/wave.svg"
-        
+
         Window.bind(on_resize=self.update_canvas)
         self.bind(size=self.update_canvas, pos=self.update_canvas)
-        self.update_canvas()
 
     def update_canvas(self, *args):
         self.canvas.clear()
         with self.canvas:
+
             PushMatrix()
 
-            scale_x = self.width / 1000  # 1000 = largura original do SVG
-            scale_y = self.height / 100   # 100 = altura original do SVG
-            
-            
-            Scale(scale_x+1, 2.8, 1)
+            # carregue o SVG antes de calcular escala
+            svg = Svg(self.svg_path)
 
-            
-            Translate(0, 0)
+            # tamanho original do SVG
+            orig_w = svg.width
+            orig_h = svg.height
 
-            self.rot = Rotate(
+            # escala proporcional ao tamanho do widget
+            scale_x = self.width / orig_w
+            scale_y = self.height / orig_h
+
+            # usa a menor escala para não distorcer
+            scale = min(scale_x, scale_y)
+
+            Scale(scale, scale, 1)
+
+            # centraliza corretamente
+            Translate(-orig_w / 2, -orig_h / 2)
+
+            # origem sempre no centro do widget, nunca números mágicos
+            Rotate(
                 angle=180,
-                origin=(200, 150, 0),  # ponto central no topo
+                origin=(self.width / 2, self.height / 2, 0),
                 axis=(0, 0, 1)
             )
 
-            self.svg = Svg(self.svg_path)
+            self.svg = svg
 
             PopMatrix()

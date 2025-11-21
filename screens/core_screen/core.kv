@@ -75,23 +75,53 @@
             Screen:
                 name: "Screen 3"
 
-                MDBoxLayout:
-                    orientation: "vertical"
+                # MDList:
+                #     id: content_settings
 
-                    ScrollView:
-                        do_scroll_x: False
+                MDSliverAppbar:
+                    background_color: app.theme_cls.secondaryColor
+                    hide_appbar: False
 
-                        BoxLayout:
-                            id: id_scroll_config
-                            orientation: "vertical"
-                            size_hint_y: None
-                            height: self.minimum_height
+                    MDTopAppBar:
+                        type: "medium"
 
-                            MDButton:
-                                
-                                MDButtonText:
-                                    text: "Logout"
-                
+                        MDTopAppBarLeadingButtonContainer:
+
+                            MDActionTopAppBarButton:
+                                icon: "arrow-left"
+                                on_release: root.change_screen("Screen 1")
+
+                        MDTopAppBarTitle:
+                            text: "Settings"
+
+                        MDTopAppBarTrailingButtonContainer:
+
+                            MDActionTopAppBarButton:
+                                icon: "attachment"
+
+                            MDActionTopAppBarButton:
+                                icon: "calendar"
+
+                            MDActionTopAppBarButton:
+                                icon: "dots-vertical"
+
+                    MDSliverAppbarHeader:
+
+                        FitImage:
+                            source: "assets/img/cognitahub-logo-re.png"
+
+                    MDSliverAppbarContent:
+                        id: content_settings
+                        orientation: "vertical"
+                        padding: "12dp"
+                        spacing: "20dp"
+                        theme_bg_color: "Custom"
+                        md_bg_color: app.theme_cls.secondaryColor
+
+                        
+
+                       
+
 
 
         MDNavigationBar:
@@ -164,3 +194,33 @@
             #        spread_radius: -35, -35
             #        border_radius: 10, 10, 10, 10
             #        blur_radius: 50
+
+
+<ConfigItemLogout>:
+    on_release: root.do_logout()
+
+
+# <ConfigItemLogout>:
+#     theme_bg_color: "Custom"
+#     md_bg_color: app.theme_cls.secondaryColor
+#     size_hint_y: None
+#     height: "50dp"
+#     on_release: root.do_logout()
+
+#     MDLabel:
+#         pos_hint: {"center_y": 0.5}
+#         font_style: "Title"
+#         role: "large"
+#         bold: True
+#         text: "Logout"
+
+#     MDLabel:
+#         pos_hint: {"center_y": 0}
+#         font_style: "Title"
+#         role: "medium"
+#         text: "Disconnect from App"
+
+
+#     MDIconButton:
+#         pos_hint: {"center_x": 0.9}
+#         icon: "logout"

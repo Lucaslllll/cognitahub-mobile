@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:export-filename="bg-bubble.svg"
+   inkscape:export-xdpi="171.044"
+   inkscape:export-ydpi="171.044"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Camada 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <ellipse
+       style="fill:#800000;stroke-width:0.264583"
+       id="path1036"
+       cx="19.874763"
+       cy="25.913784"
+       rx="33.176571"
+       ry="32.072655" />
+    <ellipse
+       style="fill:#800000;stroke-width:0.264583"
+       id="path1038"
+       cx="30.655182"
+       cy="123.23331"
+       rx="58.184746"
+       ry="90.208023" />
+    <ellipse
+       style="fill:#800000;stroke-width:0.264583"
+       id="path1042"
+       cx="29.467203"
+       cy="248.51237"
+       rx="76.079292"
+       ry="72.275879" /> 
+  </g>
+</svg>

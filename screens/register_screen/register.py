@@ -27,9 +27,11 @@ from kivy.metrics import dp
 
 from components.connection.connector import Connector
 from components.connection.credentials import URL
-
+import requests
+import json
 
 class Register(MDScreen):
+    screen_name_pass = "register_name"
 
 
     def open_snackbar(self, msg:str, *args):
@@ -59,7 +61,7 @@ class Register(MDScreen):
                 data = {
                     "name": self.ids.id_text_username.text,
                     "email": self.ids.id_text_email.text,
-                    "password": self.ids.id_text_password
+                    "password": self.ids.id_text_password.text
                 }
 
                 head = {
@@ -73,37 +75,77 @@ class Register(MDScreen):
                     user = response.json()
                     if type(user) is dict:
                         self.open_snackbar("User Registered")
+                        self.screen_name_pass = "login_name"
+                        Clock.schedule_once(self.change_to_login, 1.5)
                 else:
+                    #print(response.text)
                     self.open_snackbar("Missing Fields Or User Already Created")
-            
+                    self.screen_name_pass = "login_name"
+                    Clock.schedule_once(self.change_to_login, 1.5)
             else:
                self.open_snackbar("Passwords Do Not Match")
                     
         else:
             self.open_snackbar("Accept All Terms")
+        
+        
+
 
     def change_screen(self, screen_name, *args):
         self.manager.current = screen_name
 
+    def change_to_login(self, *args):
+        self.manager.current = self.screen_name_pass
+    
+    def on_pre_leave(self):
+        self.ids.id_text_username.text = ""
+        self.ids.id_text_email.text = ""
+        self.ids.id_text_password.text = ""
+        self.ids.id_text_password_repeat.text = "" 
 
 
 
 class SVGWidgetR(Widget):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.svg_path = "assets/img/wave.svg"
+
+        self.bind(size=self.update_canvas, pos=self.update_canvas)
+        Window.bind(on_resize=self.update_canvas)
+
+    def update_canvas(self, *args):
+        self.canvas.clear()
         with self.canvas:
-            Color(1, 0.2, 1, 1)
+
             PushMatrix()
-            # Mover
-            Translate(0, 100)     # desloca em X e Y
-            # tamanho
-            Scale(1.3, 1.5, 1)
-            self.rot = Rotate(
-                angle=270,      # o ângulo
-                origin=(300, 300, 0),  # ponto de rotação (x, y, z)
-                axis=(0, 0, 1)     # eixo de rotação (z = 1 => plano 2D)
+
+            # Carrega SVG
+            svg = Svg(self.svg_path)
+
+            # dimensões originais do SVG
+            orig_w = svg.width
+            orig_h = svg.height
+
+            # proporcional ao tamanho do widget
+            scale_x = self.width / orig_w
+            scale_y = self.height / orig_h
+            scale = min(scale_x, scale_y)
+
+            # testar essa escala responsiva
+            Scale(scale, scale, 1)
+
+            Translate(
+                (self.width - orig_w * scale) / 2,
+                (self.height - orig_h * scale) / 2
             )
 
-            # Renderiza o SVG
-            self.svg = Svg("assets/img/wave.svg")
+            # rotação responsiva girando no centro do widget
+            Rotate(
+                angle=270,
+                origin=(self.width / 2, self.height / 2, 0),
+                axis=(0, 0, 1)
+            )
+
+            self.svg = svg
+
             PopMatrix()
