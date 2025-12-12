@@ -95,6 +95,8 @@ class MDInteractiveLabel(MDBoxLayout):
                     markup=True,
                     size_hint_y=None,
                     text_size=(self.width, None),
+                    # allow_selection=True, melhor deixar quieto, está copiando as tags (o que não é errado ;) )
+                    # allow_copy=True,
                 )
                 lbl.bind(
                     texture_size=lambda inst, val: setattr(inst, "height", val[1] + 10)

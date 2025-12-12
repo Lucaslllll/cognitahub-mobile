@@ -95,7 +95,6 @@ class Login(MDScreen):
         
 
 
-
 class LabelRegister(ButtonBehavior, Label):
     pass
 
