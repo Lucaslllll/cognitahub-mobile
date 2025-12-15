@@ -33,6 +33,18 @@ class Core(MDScreen):
         self.ids.id_scroll.clear_widgets()
         self.ids.id_swiper_course.clear_widgets()
         self.ids.content_settings.clear_widgets()
+
+
+        self.ids.content_settings.add_widget(
+            ConfigItemChatBot(
+                MDListItemHeadlineText(text="ChatBot "),
+                MDListItemSupportingText(text="(experimental)"),
+                MDListItemTrailingIcon(icon="chat-question"),
+                screen_object=self,
+                theme_bg_color="Custom",
+                md_bg_color=self.theme_cls.secondaryColor,
+            )
+        )
         
         self.ids.content_settings.add_widget(
                 ConfigItemLogout(
@@ -132,6 +144,12 @@ class CardSwiper(ButtonBehavior, MDSwiperItem):
         self.screen_object.manager.select_course = self.id_course
         self.screen_object.manager.current = screen_name
 
+
+class ConfigItemChatBot(MDListItem):
+    screen_object = ObjectProperty()
+
+    def change_screen(self, *args):
+        self.screen_object.manager.current = "chat_name"
 
 class ConfigItemLogout(MDListItem):
     screen_object = ObjectProperty()
