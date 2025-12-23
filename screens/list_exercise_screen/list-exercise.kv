@@ -72,6 +72,8 @@
                 orientation: "vertical"
                 size_hint_y: None
                 height: self.minimum_height
+                spacing: "10dp"
+                padding: "15dp"
 
                 MDLabel:
                     id: details_annotation
@@ -95,6 +97,27 @@
                 MDLabel: 
                     id: status_download
                     text: ""
+                
+                BoxLayout:
+                    orientation: "horizontal"
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: "20dp"
+
+                    MDButton:
+                        size_hint_max_x: 5
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        on_release: root.file_manager_open()
+
+                        MDButtonText:
+                            text: "Choice your answers file"
+                
+                    MDButton:
+                        size_hint_max_x: 1
+                        pos_hint: {"center_x": .5, "center_y": .5}
+
+                        MDButtonIcon:
+                            icon: "send-variant-outline"
 
                 Widget:
                     size_hint_y: None

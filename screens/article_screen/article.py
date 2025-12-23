@@ -71,10 +71,15 @@ class MDInteractiveLabel(MDBoxLayout):
         # faz o conteúdo e calcula altura denov
         self.clear_widgets()
 
-        parts = re.split(r'(\[img=.*?\])', value)
+        parts = re.split(r'(\[img=.*?\]|\[paragraph\])', value)
+
         for part in parts:
-            if not part.strip():
+            if not part or not part.strip():
                 continue
+
+
+            part = part.strip()
+
 
             if part.startswith("[img=") and part.endswith("]"):
                 url = part[5:-1]
@@ -87,10 +92,14 @@ class MDInteractiveLabel(MDBoxLayout):
                         
                     )
                 )
+            
+            elif part == "[paragraph]":
+                continue
 
             else:
+                #for t in self.divide_text(text=part.strip(), limit=3000):
                 lbl = MDLabel(
-                    text=part.strip(),
+                    text=part,
                     halign="justify",
                     markup=True,
                     size_hint_y=None,
@@ -98,6 +107,7 @@ class MDInteractiveLabel(MDBoxLayout):
                     # allow_selection=True, melhor deixar quieto, está copiando as tags (o que não é errado ;) )
                     # allow_copy=True,
                 )
+
                 lbl.bind(
                     texture_size=lambda inst, val: setattr(inst, "height", val[1] + 10)
                 )
@@ -115,4 +125,18 @@ class MDInteractiveLabel(MDBoxLayout):
         ) + (len(self.children) - 1) * self.spacing
 
 
- 
+    def divide_text(self, text, limit=800):
+        parts = []
+        atual = ""
+
+        for line in text.splitlines(keepends=True):
+            if len(atual) + len(line) > limit:
+                parts.append(atual)
+                atual = line
+            else:
+                atual += line
+
+        if atual:
+            parts.append(atual)
+
+        return parts

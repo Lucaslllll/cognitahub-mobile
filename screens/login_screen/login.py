@@ -28,19 +28,6 @@ class Login(MDScreen):
 
     def on_pre_enter(self):
         self.path = App.get_running_app().user_data_dir+"/"
-    
-        Clock.schedule_once(self.on_start, 1)
-    
-
-    def on_start(self, *args):
-        store = JsonStore(self.path+"data.json")
-
-        if store.exists('login_auth'):
-            if store.get('login_auth')['access'] == True:
-
-                self.manager.user_id = store.get('user')['id']
-
-                self.change_screen("core_name")
 
 
     def do_login(self, *args):

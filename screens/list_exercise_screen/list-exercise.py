@@ -9,6 +9,10 @@ from kivymd.uix.list import MDListItemTrailingIcon
 
 from kivymd.uix.list import MDListItem, MDListItemHeadlineText, MDListItemSupportingText, MDListItemLeadingIcon, MDListItemLeadingAvatar
 
+from kivy.core.window import Window
+from kivy.metrics import dp
+from kivymd.uix.filemanager import MDFileManager
+from kivymd.uix.snackbar import MDSnackbar, MDSnackbarText
 
 from kaki.app import App
 
@@ -34,6 +38,11 @@ class MDExpansionPanelItem(MDExpansionPanel):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.is_animating = False
+        Window.bind(on_keyboard=self.events)
+        self.manager_open = False
+        self.file_manager = MDFileManager(
+            exit_manager=self.exit_manager, select_path=self.select_path
+        )
 
     screen_object = ObjectProperty()
     id_exercise = NumericProperty()
@@ -109,6 +118,36 @@ class MDExpansionPanelItem(MDExpansionPanel):
             print(e)
 
 
+    def file_manager_open(self):
+        self.file_manager.show(
+            os.path.expanduser("~"))  # output manager to the screen
+        self.manager_open = True
+
+    def select_path(self, path: str):
+        self.exit_manager()
+        MDSnackbar(
+            MDSnackbarText(
+                text=path,
+            ),
+            y=dp(24),
+            pos_hint={"center_x": 0.5},
+            size_hint_x=0.8,
+        ).open()
+
+    def exit_manager(self, *args):
+        self.manager_open = False
+        self.file_manager.close()
+
+    def events(self, instance, keyboard, keycode, text, modifiers):
+        if keyboard in (1001, 27):
+            if self.manager_open:
+                self.file_manager.back()
+        return True
+
+
+
+
+    
 class ListExercise(MDScreen):
 
     def on_pre_enter(self):
