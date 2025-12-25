@@ -2,7 +2,7 @@ appdirs==1.4.4
 asyncgui==0.6.3
 asynckivy==0.6.4
 build==1.3.0
-buildozer==1.5.0
+buildozer==1.5.1.dev0
 certifi==2025.8.3
 charset-normalizer==3.4.3
 colorama==0.4.6
