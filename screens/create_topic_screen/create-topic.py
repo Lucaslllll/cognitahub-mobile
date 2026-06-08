@@ -19,6 +19,8 @@ from components.connection.connector import Connector
 class CreateTopic(MDScreen):
     pass_two = BooleanProperty()
     only_one = BooleanProperty()
+    progress = NumericProperty(0.0)
+    
 
     def on_pre_enter(self):
         self.range_bar = 0

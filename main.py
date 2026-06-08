@@ -64,7 +64,7 @@ class CognitaHubApp(App, MDApp):
 
 
     # lembrar de tirar no deploy
-    DEBUG = 1
+    DEBUG = 0
 
     KV_FILES = {
         os.path.join(os.getcwd(), "screens/mainscreenmanager.kv"),
@@ -113,12 +113,11 @@ class CognitaHubApp(App, MDApp):
 
 
     def build_app(self):
-        self.wave_path = os.path.join(os.path.dirname(__file__), "assets/img/bg.png")
         self.theme_cls.theme_style = "Dark"
-        self.theme_cls.primary_palette = "Darkblue"
-        self.theme_cls.backgroundColor = "#312C51"
-        self.theme_cls.secondaryColor = "#48426D"
-        self.theme_cls.tertiaryColor = "#F0C38E"
+        self.theme_cls.primary_palette = "Blueviolet"   # ou "Darkviolet" / "Slateblue"
+        self.theme_cls.backgroundColor = "#1E1B2E"   # fundo principal
+        self.theme_cls.secondaryColor  = "#2D2A45"   # cards
+        self.theme_cls.tertiaryColor   = "#F0C38E"   # accent / progresso / aba ativa
 
         return Factory.MainScreenManager()
 

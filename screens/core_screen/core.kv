@@ -1,5 +1,271 @@
-<Core>
+#:import dp kivy.metrics.dp
 
+
+
+<CardSwiper>:
+    size_hint_x: None
+    width: "300dp"
+    on_release: root.change_screen("course_name")
+
+    MDCard:
+        theme_bg_color: "Custom"
+        md_bg_color: app.theme_cls.secondaryColor
+        theme_shadow_color: "Custom"
+        shadow_color: 0, 0, 0, 0
+        elevation_level: 0
+        radius: [20, 20, 20, 20]
+        line_color: 0.23, 0.21, 0.34, 1
+        line_width: 1
+        padding: "12dp"
+        orientation: "vertical"
+
+        FitImage:
+            source: root.img_url
+            radius: [14, 14, 14, 14]
+            size_hint_y: None
+            height: "200dp"
+
+        Widget:
+            size_hint_y: None
+            height: "12dp"
+
+        MDLabel:
+            text: root.title
+            text_color: "white"
+            font_style: "Title"
+            role: "medium"
+            bold: True
+            halign: "left"
+            valign: "top"
+            size_hint_y: None
+            height: "52dp"
+            text_size: self.width, self.height
+
+        Widget:
+
+        MDBoxLayout:
+            size_hint_y: None
+            height: "40dp"
+            spacing: "10dp"
+
+            MDBoxLayout:
+                orientation: "vertical"
+                spacing: "4dp"
+
+                MDLabel:
+                    text: root.progress_label
+                    text_color: 0.61, 0.58, 0.72, 1
+                    font_style: "Label"
+                    role: "small"
+                    halign: "left"
+                    size_hint_y: None
+                    height: "16dp"
+                    text_size: self.width, self.height
+
+                MDBoxLayout:
+                    size_hint_y: None
+                    height: "6dp"
+                    Widget:
+                        canvas:
+                            Color:
+                                rgba: 0.12, 0.11, 0.18, 1
+                            RoundedRectangle:
+                                pos: self.pos
+                                size: self.size
+                                radius: [3,]
+                        canvas.after:
+                            Color:
+                                rgba: app.theme_cls.tertiaryColor
+                            RoundedRectangle:
+                                pos: self.pos
+                                size: self.width * root.progress_value, self.height
+                                radius: [3,]
+
+            MDBoxLayout:
+                size_hint: None, None
+                size: "44dp", "40dp"
+                md_bg_color: 0.61, 0.49, 0.87, 0.18
+                radius: [10, 10, 10, 10]
+                orientation: "vertical"
+                pos_hint: {"center_y": 0.5}
+
+                MDLabel:
+                    text: root.lessons_count
+                    text_color: 0.74, 0.65, 0.92, 1
+                    font_style: "Label"
+                    role: "small"
+                    halign: "center"
+                    valign: "bottom"
+                    bold: True
+
+                MDLabel:
+                    text: "aulas"
+                    text_color: 0.61, 0.58, 0.72, 1
+                    font_style: "Label"
+                    role: "small"
+                    halign: "center"
+                    valign: "top"
+                    font_size: "9sp"
+
+
+
+
+<TopicCard>:
+    on_release: root.open_topic()
+    theme_bg_color: "Custom"
+    md_bg_color: app.theme_cls.secondaryColor
+    theme_shadow_color: "Custom"
+    shadow_color: 0, 0, 0, 0
+    elevation_level: 0
+    radius: [14, 14, 14, 14]
+    line_color: 0.23, 0.21, 0.34, 1
+    line_width: 1
+    padding: "14dp"
+    size_hint_y: None
+    height: "92dp"
+
+    MDBoxLayout:
+        spacing: "12dp"
+
+        MDBoxLayout:
+            size_hint: None, None
+            size: "44dp", "44dp"
+            md_bg_color: root.accent[0], root.accent[1], root.accent[2], 0.18
+            radius: [22, 22, 22, 22]
+            pos_hint: {"center_y": 0.5}
+
+            MDLabel:
+                text: root.avatar_letter
+                text_color: root.accent
+                font_style: "Title"
+                role: "medium"
+                bold: True
+                halign: "center"
+                valign: "center"
+
+        MDBoxLayout:
+            orientation: "vertical"
+            spacing: "4dp"
+            pos_hint: {"center_y": 0.5}
+
+            MDLabel:
+                text: root.title
+                text_color: "white"
+                font_style: "Body"
+                role: "large"
+                bold: True
+                size_hint_y: None
+                height: "22dp"
+                text_size: self.width, self.height
+                shorten: True
+                shorten_from: "right"
+
+            MDBoxLayout:
+                size_hint_y: None
+                height: "18dp"
+
+                MDLabel:
+                    text: root.author + "  -  " + root.time_ago
+                    text_color: 0.61, 0.58, 0.72, 1
+                    font_style: "Label"
+                    role: "small"
+                    halign: "left"
+                    valign: "middle"
+                    text_size: self.width, self.height
+
+        MDBoxLayout:
+            orientation: "vertical"
+            size_hint: None, None
+            size: "40dp", "40dp"
+            pos_hint: {"center_y": 0.5}
+
+            MDIcon:
+                icon: "message-reply-text-outline"
+                theme_icon_color: "Custom"
+                icon_color: 0.61, 0.58, 0.72, 1
+                size_hint_y: None
+                height: "20dp"
+                pos_hint: {"center_x": 0.5}
+
+            MDLabel:
+                text: root.replies
+                text_color: 0.61, 0.58, 0.72, 1
+                font_style: "Label"
+                role: "small"
+                bold: True
+                halign: "center"
+
+
+
+
+<SettingsRow>:
+    on_release: root.on_press_action()
+    theme_bg_color: "Custom"
+    md_bg_color: app.theme_cls.secondaryColor
+    theme_shadow_color: "Custom"
+    shadow_color: 0, 0, 0, 0
+    elevation_level: 0
+    radius: [14, 14, 14, 14]
+    line_color: 0.23, 0.21, 0.34, 1
+    line_width: 1
+    padding: "14dp"
+    size_hint_y: None
+    height: "68dp"
+
+    MDBoxLayout:
+        spacing: "14dp"
+
+        MDBoxLayout:
+            size_hint: None, None
+            size: "40dp", "40dp"
+            md_bg_color: root.accent[0], root.accent[1], root.accent[2], 0.18
+            radius: [10, 10, 10, 10]
+            pos_hint: {"center_y": 0.5}
+
+            MDIcon:
+                icon: root.icon_name
+                theme_icon_color: "Custom"
+                icon_color: root.accent
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+        MDBoxLayout:
+            orientation: "vertical"
+            pos_hint: {"center_y": 0.5}
+            size_hint_y: None
+            height: "40dp"
+
+            MDLabel:
+                text: root.title
+                text_color: "white"
+                font_style: "Body"
+                role: "large"
+                bold: True
+                size_hint_y: None
+                height: "22dp"
+                text_size: self.width, self.height
+                valign: "middle"
+
+            MDLabel:
+                text: root.subtitle
+                text_color: 0.61, 0.58, 0.72, 1
+                font_style: "Label"
+                role: "small"
+                size_hint_y: None
+                height: "16dp"
+                text_size: self.width, self.height
+
+        MDIcon:
+            icon: "chevron-right"
+            theme_icon_color: "Custom"
+            icon_color: 0.42, 0.40, 0.53, 1
+            size_hint: None, None
+            size: "20dp", "20dp"
+            pos_hint: {"center_y": 0.5}
+            opacity: 1 if root.show_chevron else 0
+
+
+
+<Core>
 
     MDBoxLayout:
         orientation: "vertical"
@@ -7,223 +273,188 @@
 
         MDScreenManager:
             id: id_screen_manager
-
+            
             Screen:
                 name: "Screen 1"
-                
+
                 MDBoxLayout:
                     orientation: "vertical"
 
+                    # Header
                     MDBoxLayout:
                         orientation: "vertical"
-                        spacing: "20dp"
+                        size_hint_y: None
+                        height: "120dp"
+                        padding: ["20dp", "28dp", "20dp", "8dp"]
+                        spacing: "4dp"
 
                         MDLabel:
-                            text: "Courses "
+                            text: "My Courses"
+                            text_color: "white"
                             font_style: "Display"
-                            #role: "small"
-                            
-                        
-
-                        MDSwiper:
-                            id: id_swiper_course
+                            role: "small"
+                            bold: True
+                            halign: "left"
+                            valign: "middle"
                             size_hint_y: None
-                            height: "350dp"
-                            y: root.height - self.height - dp(20)
-                            
+                            height: "64dp"
+                            text_size: self.width, self.height
 
-                        BoxLayout:
+                        MDLabel:
+                            text: "Pick up where you left off"
+                            text_color: 0.61, 0.58, 0.72, 1
+                            font_style: "Body"
+                            role: "medium"
+                            halign: "left"
+                            size_hint_y: None
+                            height: "22dp"
+                            text_size: self.width, self.height
 
-                
-            
+                    # Carrossel de cursos
+                    MDSwiper:
+                        id: id_swiper_course
+                        size_hint_y: None
+                        height: "360dp"
+                        size_hint_x: None
+                        width: root.width
+                        items_spacing: "16dp"
+
+                    # Indicadores (dots)
+                    MDBoxLayout:
+                        id: dots_box
+                        size_hint_y: None
+                        height: "30dp"
+                        spacing: "8dp"
+                        padding: ["20dp", "8dp", "20dp", "8dp"]
+                        adaptive_width: True
+                        pos_hint: {"center_x": 0.5}
+
+                    Widget:
 
 
             Screen:
                 name: "Screen 2"
-                
+
                 MDBoxLayout:
                     orientation: "vertical"
-                    
-                    MDTopAppBar:
 
-                        MDTopAppBarTitle:
-                            text: "Feel free to post any questions"
-                            pos_hint: {"center_x": .5}
+                    # Header
+                    MDBoxLayout:
+                        orientation: "vertical"
+                        size_hint_y: None
+                        height: "104dp"
+                        padding: ["20dp", "28dp", "20dp", "8dp"]
+                        spacing: "2dp"
 
-                        MDTopAppBarTrailingButtonContainer:
+                        MDBoxLayout:
+                            size_hint_y: None
+                            height: "44dp"
 
-                            MDActionTopAppBarButton:
+                            MDLabel:
+                                text: "Forum"
+                                text_color: "white"
+                                font_style: "Display"
+                                role: "small"
+                                bold: True
+                                halign: "left"
+                                valign: "middle"
+                                text_size: self.width, self.height
+
+                            MDIconButton:
+                                style: "tonal"
                                 icon: "plus"
-                                on_release: root.manager.current = "create_topic_name"
+                                theme_bg_color: "Custom"
+                                md_bg_color: app.theme_cls.tertiaryColor
+                                theme_icon_color: "Custom"
+                                icon_color: 0.12, 0.11, 0.18, 1
+                                pos_hint: {"center_y": 0.5}
+                                on_release: root.manager.current = "create_topic_name" if root.manager else None
 
-                    MDDivider:
+                        MDLabel:
+                            text: "Feel free to post any questions"
+                            text_color: 0.61, 0.58, 0.72, 1
+                            font_style: "Body"
+                            role: "medium"
+                            halign: "left"
+                            size_hint_y: None
+                            height: "22dp"
+                            text_size: self.width, self.height
 
+                    # Lista de topicos
                     ScrollView:
                         do_scroll_x: False
 
-                        BoxLayout:
+                        MDBoxLayout:
                             id: id_scroll
                             orientation: "vertical"
                             size_hint_y: None
                             height: self.minimum_height
-                
-                        
+                            padding: ["20dp", "4dp", "20dp", "12dp"]
+                            spacing: "12dp"
 
-                    
 
-            
             Screen:
                 name: "Screen 3"
 
-                # MDList:
-                #     id: content_settings
+                MDBoxLayout:
+                    orientation: "vertical"
 
-                MDSliverAppbar:
-                    background_color: app.theme_cls.secondaryColor
-                    hide_appbar: False
-
-                    MDTopAppBar:
-                        type: "medium"
-
-                        MDTopAppBarLeadingButtonContainer:
-
-                            MDActionTopAppBarButton:
-                                icon: "arrow-left"
-                                on_release: root.change_screen("Screen 1")
-
-                        MDTopAppBarTitle:
-                            text: "Settings"
-
-                        MDTopAppBarTrailingButtonContainer:
-
-                            MDActionTopAppBarButton:
-                                icon: "attachment"
-
-                            MDActionTopAppBarButton:
-                                icon: "calendar"
-
-                            MDActionTopAppBarButton:
-                                icon: "dots-vertical"
-
-                    MDSliverAppbarHeader:
-
-                        FitImage:
-                            source: "assets/img/cognitahub-logo-re.png"
-
-                    MDSliverAppbarContent:
-                        id: content_settings
+                    # Header
+                    MDBoxLayout:
                         orientation: "vertical"
-                        padding: "12dp"
-                        spacing: "20dp"
-                        theme_bg_color: "Custom"
-                        md_bg_color: app.theme_cls.secondaryColor
+                        size_hint_y: None
+                        height: "104dp"
+                        padding: ["20dp", "28dp", "20dp", "8dp"]
+                        spacing: "2dp"
 
-                        
+                        MDLabel:
+                            text: "Settings"
+                            text_color: "white"
+                            font_style: "Display"
+                            role: "small"
+                            bold: True
+                            halign: "left"
+                            valign: "middle"
+                            size_hint_y: None
+                            height: "64dp"
+                            text_size: self.width, self.height
 
-                       
+                    # Lista de configuracoes
+                    ScrollView:
+                        do_scroll_x: False
 
+                        MDBoxLayout:
+                            id: content_settings
+                            orientation: "vertical"
+                            size_hint_y: None
+                            height: self.minimum_height
+                            padding: ["20dp", "4dp", "20dp", "12dp"]
+                            spacing: "12dp"
 
 
         MDNavigationBar:
 
             MDNavigationItem:
+                active: True
                 on_release: root.change_screen("Screen 1")
 
-                MDNavigationItemIcon: 
+                MDNavigationItemIcon:
                     icon: "school"
-                MDNavigationItemLabel: 
+                MDNavigationItemLabel:
                     text: "My Courses"
-                
 
             MDNavigationItem:
                 on_release: root.change_screen("Screen 2")
 
-                MDNavigationItemIcon: 
+                MDNavigationItemIcon:
                     icon: "forum"
-                MDNavigationItemLabel: 
+                MDNavigationItemLabel:
                     text: "Forum"
 
             MDNavigationItem:
                 on_release: root.change_screen("Screen 3")
 
-                MDNavigationItemIcon: 
+                MDNavigationItemIcon:
                     icon: "cog"
-                MDNavigationItemLabel: 
+                MDNavigationItemLabel:
                     text: "Settings"
-
-
-
-
-
-<ListItemTopic>:
-    on_release: root.change_screen()
-
-
-
-
-<CardSwiper>:
-    on_release: root.change_screen("course_name")
-
-    MDBoxLayout: 
-        orientation: "vertical"
-        md_bg_color: app.theme_cls.surfaceColor
-        size_hint_y: None
-        height: root.height
-        radius: 30
-
-        FitImage:
-            source: root.img_url
-            radius: [dp(15),]
-            size_hint_y: 3
-            
-        MDLabel:
-            size_hint_y: 1
-            padding: 10
-            halign: "center"
-            text_color: "white"
-            text: root.title
-            bold: True
-
-            #canvas.before:
-            #    Color:
-            #        rgba: 1, 1, 1, 1
-            #    BoxShadow:
-            #        pos: self.pos
-            #        size: self.size
-            #        offset: 0, 10
-            #        spread_radius: -35, -35
-            #        border_radius: 10, 10, 10, 10
-            #        blur_radius: 50
-
-
-<ConfigItemChatBot>:
-    on_release: root.change_screen()
-
-<ConfigItemLogout>:
-    on_release: root.do_logout()
-
-
-# <ConfigItemLogout>:
-#     theme_bg_color: "Custom"
-#     md_bg_color: app.theme_cls.secondaryColor
-#     size_hint_y: None
-#     height: "50dp"
-#     on_release: root.do_logout()
-
-#     MDLabel:
-#         pos_hint: {"center_y": 0.5}
-#         font_style: "Title"
-#         role: "large"
-#         bold: True
-#         text: "Logout"
-
-#     MDLabel:
-#         pos_hint: {"center_y": 0}
-#         font_style: "Title"
-#         role: "medium"
-#         text: "Disconnect from App"
-
-
-#     MDIconButton:
-#         pos_hint: {"center_x": 0.9}
-#         icon: "logout"

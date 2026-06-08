@@ -1,107 +1,379 @@
 <Course>
+    course_name: "PYTHON COURSE"
+    current_lesson: "Lesson 4 of 12"
+    progress_value: 0.32
+    progress_label: "32% complete"
+
     MDBoxLayout:
         orientation: "vertical"
         md_bg_color: app.theme_cls.backgroundColor
-        
-            
+
+        # ===== HEADER =====
         MDBoxLayout:
             orientation: "vertical"
             size_hint_y: None
-            height: "200dp"
-            #padding: ""
-            md_bg_color: app.theme_cls.secondaryColor 
+            height: "210dp"
+            padding: ["20dp", "12dp", "20dp", "16dp"]
+            spacing: "8dp"
+
+            MDBoxLayout:
+                size_hint_y: None
+                height: "40dp"
+                spacing: "8dp"
+
+                MDIconButton:
+                    icon: "arrow-left"
+                    theme_icon_color: "Custom"
+                    icon_color: "white"
+                    on_release: root.change_screen_to_core("Screen 1")
+                    pos_hint: {"center_y": 0.5}
+
+                Widget:
+
+                MDLabel:
+                    text: root.course_name
+                    text_color: 0.61, 0.58, 0.72, 1
+                    font_style: "Label"
+                    role: "small"
+                    halign: "center"
+                    bold: True
+                    size_hint_x: None
+                    width: "120dp"
+                    pos_hint: {"center_y": 0.5}
+
+                Widget:
+
+                MDIconButton:
+                    icon: "dots-vertical"
+                    theme_icon_color: "Custom"
+                    icon_color: 0.61, 0.58, 0.72, 1
+                    pos_hint: {"center_y": 0.5}
 
             MDLabel:
-                font_style: "Display"
-                role: "small"
                 text: "Course Content"
                 text_color: "white"
-                halign: "left"
+                font_style: "Headline"
+                role: "small"
                 bold: True
+                halign: "left"
+                valign: "middle"
+                size_hint_y: None
+                height: "42dp"
+                text_size: self.width, self.height
 
             MDLabel:
-                text:"Practice by doing the course exercise lists, read the articles for each lesson, and submit any pending assignments to the teacher for correction."
-                text_color: "white"
+                text: root.current_lesson + "  \u00b7  " + root.progress_label
+                text_color: 0.61, 0.58, 0.72, 1
+                font_style: "Body"
+                role: "small"
                 halign: "left"
-                padding: "20dp"
+                valign: "middle"
+                size_hint_y: None
+                height: "20dp"
+                text_size: self.width, self.height
 
-                
+            MDBoxLayout:
+                size_hint_y: None
+                height: "6dp"
+                Widget:
+                    canvas:
+                        Color:
+                            rgba: app.theme_cls.secondaryColor
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [3,]
+                    canvas.after:
+                        Color:
+                            rgba: app.theme_cls.tertiaryColor
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.width * root.progress_value, self.height
+                            radius: [3,]
 
+            MDLabel:
+                text: "Practice exercise lists, read articles, and submit pending assignments."
+                text_color: 0.72, 0.70, 0.82, 1
+                font_style: "Body"
+                role: "small"
+                halign: "left"
+                valign: "top"
+                size_hint_y: None
+                height: "40dp"
+                text_size: self.width, self.height
 
+        # ===== CONTEUDO =====
         MDBoxLayout:
             orientation: "vertical"
-            size_hint: None, None
-            width: self.minimum_width
+            size_hint_y: None
             height: self.minimum_height
-            pos_hint: {"center_x": 0.5}
+            padding: ["20dp", "8dp", "20dp", "12dp"]
+            spacing: "12dp"
 
-            MDGridLayout:
-                id: tab_box  
-                padding: "5dp" 
-                rows: 2
-                cols: 2
-                spacing: 10
-                size_hint: None, None
-                size: self.minimum_size
+            MDBoxLayout:
+                size_hint_y: None
+                height: "140dp"
+                spacing: "12dp"
 
                 MDCard:
-                    theme_shadow_color: "Custom"
-                    shadow_color: "green"
                     theme_bg_color: "Custom"
-                    md_bg_color: "white"
-                    md_bg_color_disabled: "grey"
-                    theme_shadow_offset: "Custom"
-                    shadow_offset: (1, -2)
-                    theme_shadow_softness: "Custom"
-                    shadow_softness: 1
-                    theme_elevation_level: "Custom"
-                    elevation_level: 2
-                    
-                    size_hint: None, None
-                    height: "170dp"
-                    width: "170dp"
-                    style: "outlined"
+                    md_bg_color: app.theme_cls.secondaryColor
+                    theme_shadow_color: "Custom"
+                    shadow_color: 0, 0, 0, 0
+                    elevation_level: 0
+                    radius: [14, 14, 14, 14]
+                    line_color: 0.23, 0.21, 0.34, 1
+                    line_width: 1
+                    padding: "14dp"
                     on_release: root.change_screen("list_exercise_name")
-                    
-                    
 
-                    MDLabel:
-                        padding: "10dp"
-                        text_color: self.theme_cls.backgroundColor
-                        bold: True
-                        text: "Exercise Lists"
-                        halign: "center"
-                        
-                
+                    MDBoxLayout:
+                        orientation: "vertical"
+
+                        MDBoxLayout:
+                            size_hint_y: None
+                            height: "36dp"
+                            spacing: "4dp"
+
+                            MDBoxLayout:
+                                size_hint: None, None
+                                size: "36dp", "36dp"
+                                md_bg_color: 0.94, 0.77, 0.56, 0.15
+                                radius: [10, 10, 10, 10]
+
+                                MDIcon:
+                                    icon: "format-list-checks"
+                                    theme_icon_color: "Custom"
+                                    icon_color: app.theme_cls.tertiaryColor
+                                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+                            Widget:
+
+                            MDBoxLayout:
+                                size_hint: None, None
+                                size: "52dp", "22dp"
+                                md_bg_color: 0.12, 0.11, 0.18, 1
+                                radius: [6, 6, 6, 6]
+                                pos_hint: {"center_y": 0.5}
+
+                                MDLabel:
+                                    text: "5 NEW"
+                                    font_style: "Label"
+                                    role: "small"
+                                    text_color: 0.61, 0.58, 0.72, 1
+                                    halign: "center"
+                                    valign: "center"
+                                    bold: True
+
+                        Widget:
+
+                        MDLabel:
+                            text: "Exercise lists"
+                            text_color: "white"
+                            font_style: "Body"
+                            role: "medium"
+                            bold: True
+                            size_hint_y: None
+                            height: "22dp"
+
+                        MDLabel:
+                            text: "8 of 12 done"
+                            text_color: 0.61, 0.58, 0.72, 1
+                            font_style: "Label"
+                            role: "small"
+                            size_hint_y: None
+                            height: "18dp"
+
                 MDCard:
-                    theme_shadow_color: "Custom"
-                    shadow_color: "green"
                     theme_bg_color: "Custom"
-                    md_bg_color: "white"
-                    md_bg_color_disabled: "grey"
-                    theme_shadow_offset: "Custom"
-                    shadow_offset: (1, -2)
-                    theme_shadow_softness: "Custom"
-                    shadow_softness: 1
-                    theme_elevation_level: "Custom"
-                    elevation_level: 2
-
-                    size_hint: None, None
-                    height: "170dp"
-                    width: "170dp"
-                    style: "outlined"
-
+                    md_bg_color: app.theme_cls.secondaryColor
+                    theme_shadow_color: "Custom"
+                    shadow_color: 0, 0, 0, 0
+                    elevation_level: 0
+                    radius: [14, 14, 14, 14]
+                    line_color: 0.23, 0.21, 0.34, 1
+                    line_width: 1
+                    padding: "14dp"
                     on_release: root.change_screen("list_article_name")
-                    
 
-                    MDLabel:
-                        padding: "10dp"
-                        bold: True
-                        text_color: self.theme_cls.backgroundColor
-                        text: "Articles"
-                        halign: "center"
+                    MDBoxLayout:
+                        orientation: "vertical"
 
+                        MDBoxLayout:
+                            size_hint_y: None
+                            height: "36dp"
+                            spacing: "4dp"
 
+                            MDBoxLayout:
+                                size_hint: None, None
+                                size: "36dp", "36dp"
+                                md_bg_color: 0.61, 0.49, 0.87, 0.18
+                                radius: [10, 10, 10, 10]
+
+                                MDIcon:
+                                    icon: "book-open-variant"
+                                    theme_icon_color: "Custom"
+                                    icon_color: 0.61, 0.49, 0.87, 1
+                                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+                            Widget:
+
+                            MDBoxLayout:
+                                size_hint: None, None
+                                size: "36dp", "22dp"
+                                md_bg_color: 0.12, 0.11, 0.18, 1
+                                radius: [6, 6, 6, 6]
+                                pos_hint: {"center_y": 0.5}
+
+                                MDLabel:
+                                    text: "12"
+                                    font_style: "Label"
+                                    role: "small"
+                                    text_color: 0.61, 0.58, 0.72, 1
+                                    halign: "center"
+                                    valign: "center"
+                                    bold: True
+
+                        Widget:
+
+                        MDLabel:
+                            text: "Articles"
+                            text_color: "white"
+                            font_style: "Body"
+                            role: "medium"
+                            bold: True
+                            size_hint_y: None
+                            height: "22dp"
+
+                        MDLabel:
+                            text: "3 unread"
+                            text_color: 0.61, 0.58, 0.72, 1
+                            font_style: "Label"
+                            role: "small"
+                            size_hint_y: None
+                            height: "18dp"
+
+            MDCard:
+                theme_bg_color: "Custom"
+                md_bg_color: app.theme_cls.secondaryColor
+                theme_shadow_color: "Custom"
+                shadow_color: 0, 0, 0, 0
+                elevation_level: 0
+                radius: [14, 14, 14, 14]
+                line_color: 0.23, 0.21, 0.34, 1
+                line_width: 1
+                padding: "14dp"
+                size_hint_y: None
+                height: "70dp"
+                on_release: root.change_screen("pending_assignments")
+
+                MDBoxLayout:
+                    spacing: "12dp"
+
+                    MDBoxLayout:
+                        size_hint: None, None
+                        size: "36dp", "36dp"
+                        md_bg_color: 0.96, 0.44, 0.44, 0.15
+                        radius: [10, 10, 10, 10]
+                        pos_hint: {"center_y": 0.5}
+
+                        MDIcon:
+                            icon: "clipboard-text-outline"
+                            theme_icon_color: "Custom"
+                            icon_color: 0.96, 0.44, 0.44, 1
+                            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+                    MDBoxLayout:
+                        orientation: "vertical"
+                        pos_hint: {"center_y": 0.5}
+                        size_hint_y: None
+                        height: "44dp"
+
+                        MDLabel:
+                            text: "Pending assignments"
+                            text_color: "white"
+                            font_style: "Body"
+                            role: "medium"
+                            bold: True
+                            size_hint_y: None
+                            height: "22dp"
+
+                        MDLabel:
+                            text: "2 awaiting correction  ·  Due Friday"
+                            text_color: 0.61, 0.58, 0.72, 1
+                            font_style: "Label"
+                            role: "small"
+                            size_hint_y: None
+                            height: "18dp"
+
+                    MDIcon:
+                        icon: "chevron-right"
+                        theme_icon_color: "Custom"
+                        icon_color: 0.61, 0.58, 0.72, 1
+                        size_hint: None, None
+                        size: "20dp", "20dp"
+                        pos_hint: {"center_y": 0.5}
+
+            MDCard:
+                theme_bg_color: "Custom"
+                md_bg_color: app.theme_cls.secondaryColor
+                theme_shadow_color: "Custom"
+                shadow_color: 0, 0, 0, 0
+                elevation_level: 0
+                radius: [14, 14, 14, 14]
+                line_color: 0.23, 0.21, 0.34, 1
+                line_width: 1
+                padding: "14dp"
+                size_hint_y: None
+                height: "70dp"
+                on_release: root.change_screen("current_lesson")
+
+                MDBoxLayout:
+                    spacing: "12dp"
+
+                    MDBoxLayout:
+                        size_hint: None, None
+                        size: "36dp", "36dp"
+                        md_bg_color: 0.29, 0.87, 0.50, 0.15
+                        radius: [10, 10, 10, 10]
+                        pos_hint: {"center_y": 0.5}
+
+                        MDIcon:
+                            icon: "play"
+                            theme_icon_color: "Custom"
+                            icon_color: 0.29, 0.87, 0.50, 1
+                            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+                    MDBoxLayout:
+                        orientation: "vertical"
+                        pos_hint: {"center_y": 0.5}
+                        size_hint_y: None
+                        height: "40dp"
+
+                        MDLabel:
+                            text: "Continue " + root.current_lesson.lower()
+                            text_color: 0.61, 0.58, 0.72, 1
+                            font_style: "Label"
+                            role: "small"
+                            size_hint_y: None
+                            height: "18dp"
+
+                        MDLabel:
+                            text: "Loops & iteration"
+                            text_color: "white"
+                            font_style: "Body"
+                            role: "medium"
+                            bold: True
+                            size_hint_y: None
+                            height: "22dp"
+
+                    MDIcon:
+                        icon: "chevron-right"
+                        theme_icon_color: "Custom"
+                        icon_color: 0.61, 0.58, 0.72, 1
+                        size_hint: None, None
+                        size: "20dp", "20dp"
+                        pos_hint: {"center_y": 0.5}
 
         Widget:
 
@@ -109,27 +381,21 @@
 
             MDNavigationItem:
                 on_release: root.change_screen_to_core("Screen 1")
-
-                MDNavigationItemIcon: 
+                MDNavigationItemIcon:
                     icon: "school"
-                MDNavigationItemLabel: 
+                MDNavigationItemLabel:
                     text: "My Courses"
-                
 
             MDNavigationItem:
                 on_release: root.change_screen_to_core("Screen 2")
-
-                MDNavigationItemIcon: 
+                MDNavigationItemIcon:
                     icon: "forum"
-                MDNavigationItemLabel: 
+                MDNavigationItemLabel:
                     text: "Forum"
 
             MDNavigationItem:
                 on_release: root.change_screen_to_core("Screen 3")
-
-                MDNavigationItemIcon: 
+                MDNavigationItemIcon:
                     icon: "cog"
-                MDNavigationItemLabel: 
+                MDNavigationItemLabel:
                     text: "Settings"
-
-        

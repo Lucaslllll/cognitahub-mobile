@@ -26,6 +26,7 @@ from kaki.app import App
 
 class Core(MDScreen):
     
+    
     def on_pre_enter(self):
         Clock.schedule_once(self.on_start, 1)
     
@@ -139,6 +140,9 @@ class CardSwiper(ButtonBehavior, MDSwiperItem):
     img_url = StringProperty()
     title = StringProperty()
     screen_object = ObjectProperty()
+    progress_label = StringProperty("0% complete")
+    progress_value = NumericProperty(0.0)   # 0.0 a 1.0
+    lessons_count = StringProperty("0")
 
     def change_screen(self, screen_name, *args):
         self.screen_object.manager.select_course = self.id_course
